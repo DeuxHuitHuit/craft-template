@@ -1,0 +1,12 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "pwa-chrome",
+			"request": "launch",
+			"name": "Chrome Debug",
+			"url": "https://<TOFILL>.288dev.com/?use-dev=yes&livereload=yes",
+			"webRoot": "${workspaceFolder}/web"
+		}
+	]
+}

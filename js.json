@@ -1,0 +1,24 @@
+{
+	"before": [
+		"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js",
+		"https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.10.2/underscore-min.js"
+	],
+	"sources": [
+		"core/framework.min.js",
+
+		"fx/tracking.js",
+		"fx/compute-options.js",
+		"fx/change-state.js",
+
+		"modules/link-selector.js",
+		"modules/watermark.js",
+
+		"pages/default.js"
+	],
+	"after": [
+
+	],
+	"dev": [
+
+	]
+}
