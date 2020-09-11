@@ -26,5 +26,6 @@
 {% endmacro %}
 
 {% macro isValidMimeType(image) %}
+{% set mimeType = image.mimeType|default %}
 {% if image and mimeType != 'image/gif' and mimeType != 'image/svg+xml' and mimeType != 'image/svg' and mimeType != 'image/tiff' and mimeType != 'text/plain' %}yes{% else %}no{% endif %}
 {% endmacro %}
