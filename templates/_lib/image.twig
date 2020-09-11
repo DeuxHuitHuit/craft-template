@@ -1,0 +1,69 @@
+{% import "_utils/image" as utils %}
+
+{#
+	IMAGE
+	
+	image: A Craft CMS Asset of type image
+	src: Original source of image
+	alt: Alt property of image
+	fit(contain|cover|fill|scale-down): Determines if and how the image should fit its container
+	focal{x, y}: Position of focal point used with fit
+	sizes[]: List of sizes the image should be available in for responsive purposes
+	transform{}: A Craft CMS Image Transform hash
+	@TODO - sources[]: List of different images for art direction purposes
+
+	Responsive images: https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images 
+
+#}
+
+{% set image = image|default %}
+{% set src = src ?? image.url|default(false) %}
+{% set alt = alt ?? image.title|default(false) %}
+{% set fit = fit|default %}
+{% set focal = focal ?? utils.getFocalPoint(image)|default %}
+{% set sizes = sizes|default([
+	{ height: 0, width: 430, mq: '(max-width: 430px)'},
+	{ height: 0, width: 890, mq: '(max-width: 890px)'},
+	{ height: 0, width: 1260, mq: '(max-width: 1260px)'},
+	{ height: 0, width: 1920},
+]) %}
+{% set transform = transform|default({
+	quality: 80,
+}) %}
+{% set mimeType = image.mimeType|default %}
+{% set useSizes = (shouldUseSizes ?? true) and utils.isValidMimeType(image) == 'yes' %}
+{% set srcsetAttr = utils.getSrcsetAttr(image, sizes, transform)|default(false) %}
+{% set sizesAttr = utils.getSizesAttr(sizes)|default(false) %}
+{% set sources = sources|default %}
+
+
+{% set attr = {
+	class: [
+		'block',
+		fit ? 'absolute inset-0',
+		extClass|default
+	],
+}|merge(extAttr|default({})) %}
+
+{% set attrImg = {
+	class: [
+		'block max-w-full',
+		fit ? utils.getFitClasses(fit),
+		extClassImg|default
+	],
+	src: src,
+	srcset: useSizes ? srcsetAttr : false,
+	sizes: useSizes ? sizesAttr : false,
+	alt: alt,
+	width: image.width|default(false),
+	height: image.height|default(false),
+	style: focal ?: false, 
+}|merge(extAttrImg|default({})) %}
+
+
+<picture {{ attr(attr) }}>
+	{% for source in sources %}
+		{# @TODO #}
+	{% endfor %}
+	<img {{ attr(attrImg) }}/>
+</picture>
