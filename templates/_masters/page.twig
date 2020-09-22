@@ -1,0 +1,18 @@
+{% extends "_masters/html.twig" %}
+
+{% set pageTitle = 'Page title' %}
+{% set pageDescription = 'Page description' %}
+{% set pageImage = null %}
+{% set pageUrl = craft.app.request.absoluteUrl|default %}
+
+{% block site %}
+	{% block siteHeader %}
+		{% include "_site/header" %}
+	{% endblock %}
+	<div id="page" class="page">
+		{% block page %}{% endblock %}
+	</div>
+	{% block siteFooter %}
+		{% include "_site/footer" %}
+	{% endblock %}
+{% endblock %}

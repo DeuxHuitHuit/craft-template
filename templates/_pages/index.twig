@@ -1,0 +1,138 @@
+{% extends "_masters/page.twig" %}
+
+{% set aboutTitle = entry.aboutTitle|default %}
+{% set aboutText = entry.aboutText|default %}
+
+{% set serviceTitle = entry.serviceTitle|default %}
+{% set servicesGroups = entry.servicesGroups|default %}
+
+{% set brandsTitle = entry.brandsTitle|default %}
+{% set brandsSubtitle = entry.brandsSubtitle|default %}
+{% set brands = entry.brands|default %}
+
+{% set articleTitle = entry.articlesTitle|default %}
+{% set articlesSeeAllLink = entry.articlesSeeAllLink.one()|default %}
+{% set articles = craft.entries.section('article').limit(3).all()|default %}
+
+{% set contactTitle = entry.contactTitle|default %}
+{% set contactLetsTalkAbout = entry.contactLetsTalkAboutItIntro|default %}
+{% set contactDrinks = entry.contactDrinks|default %}
+{% set contactForm = craft.formie.forms({ handle: 'contactForm' }).one()|default %}
+
+{% set h2Attrs = {
+		class: [
+			'text-giant', 'text-pink', 'font-sans', 'ml-broad', extClass|default
+		],
+	}|merge(extAttr|default({}))
+%}
+
+{% set sectionAttrs = {
+	class: [
+		'mt-giga', extClass|default
+	],
+}|merge(extAttr|default({})) %}
+
+{% set containerContentRight = {
+	class: [
+		'flex', 'justify-end', 'pr-larger', 'mt-largest', 'ml-broad', extClass|default
+	],
+}|merge(extAttr|default({})) %}
+
+{% block page %}
+	{% include "_layouts/_base" %}
+
+	<style>
+		:root {
+			--background-color: #2D3E4D;
+			--body-text-color: #D7D7D7;
+			--title-text-color: #FBD5BF;
+		}
+		body {
+			background-color: var(--background-color);
+		}
+	</style>
+
+	<!-- ABOUT -->
+	<section id="about" {{ attr(sectionAttrs) }}>
+		<h2 {{ attr(h2Attrs) }}>{{ aboutTitle }}</h2>
+		<div {{ attr(containerContentRight) }}>
+			<p class="text-huger text-light-grey font-serif max-w-smaller">{{ aboutText }}</p>
+		</div>
+	</section>
+
+	<!-- SERVICES -->
+	<section id="services" {{ attr(sectionAttrs) }}>
+		<h2 {{ attr(h2Attrs) }}>{{ serviceTitle }}</h2>
+		{# TODO: Fix class overriden #}
+		<div {{ attr(containerContentRight) }}>
+			<div class="bg-pink flex justify-center p-large max-w-smaller">
+				{% for serviceGroup in servicesGroups %}
+					<div class="w-1/2 p-thinnest divide-responsive divide-y-slimmest divide-opacity-25">
+						<h3 class="text-tallest+ text-dark-navy font-sans font-medium">{{ serviceGroup.displayTitle }}</h3>
+						<ul class="divide-responsive divide-y-slimmest divide-opacity-25 mt-broadest">
+							{% for service in serviceGroup.services %}
+								<li class="text-tallest text-dark-navy font-serif py-thin"> {{ service.displayTitle }} </li>
+							{% endfor %}
+						</ul>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+
+	<!-- MARQUES / BRANDS -->
+	<section id="brands" {{ attr(sectionAttrs) }}>
+		<h2 {{ attr(h2Attrs) }}>{{ brandsTitle }} </h2>
+		<h3 class="text-light-grey text-tall font-sans ml-broad">{{ brandsSubtitle }}</h3>
+		
+		<ul class="mt-larger mx-auto max-w-smaller px-broadest">
+			{% for brandRow in brands %}
+				<li class="mt-broadest text-center text-light-grey text-hugest+ font-serif font-normal hover:text-pink cursor-default transition-colors duration-150">{{ brandRow.displayTitle }}</li>
+			{% endfor %}
+		</ul>
+	</section>
+
+	<!-- ARTICLES -->
+	<section id="articles" {{ attr(sectionAttrs) }}>
+		<h2 {{ attr(h2Attrs) }}>{{ articleTitle }}</h2>
+		<a class=" text-current text-light-grey font-sans font-medium underline ml-broad" href="{{ articlesSeeAllLink.anchor }}">{{ articlesSeeAllLink.displayTitle }}</a>
+
+		<ul class="flex justify-between px-larger space-x-broadest mt-larger">
+			{% for article in articles %}
+				<li class="flex flex-col w-1/3">
+					{% if article.articleThumbnailMedia %}
+						{# TODO: replace with real assets in craft to test #}
+						<img class="object-cover object-center block" src="https://picsum.photos/200/200">
+					{% endif %}
+					<p class="text-center font-alt text-pink text-short font-medium">{{ article.postDate|date("d.m.Y") }}</p>
+					<a href="/articles/{{ article.slug }}">
+						<h4 class="text-tallest++ text-light-grey font-serif">{{ article.title }}</h4>
+					</a>
+				</li>
+
+			{% endfor %}
+		</ul>
+		<div class="flex justify-center">
+			<a class="mt-broadest+ text-taller text-center text-light-grey font-sans font-medium underline" href="{{ articlesSeeAllLink.anchor }}">{{ articlesSeeAllLink.displayTitle }}</a>
+		</div>
+	</section>
+
+	<!-- CONTACT -->
+	<section id="contact" {{ attr(sectionAttrs) }}>
+		<h2 {{ attr(h2Attrs) }}>{{ contactTitle }}</h2>
+		<ul class="flex">
+			{# TODO: Add real socials #}
+			{% for social in ['Instagram', 'Facebook', 'Linked In'] %}
+				<li>
+					<a class="ml-broad text-taller underline text-light-grey font-sans" href="/">{{ social }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+		<h3 class="text-light-navy text-enormous font-serif">@ilot_<br>marketing</h3>
+		<div style="border-bottom: 4px solid #D7D7D7"></div>
+		<p class="font-sans font-hugest text-pink">{{ contactLetsTalkAbout }}</p>
+		{# TODO: alterning text for drinks #}
+		{# <p>{{  }}</p> #}
+		{{ craft.formie.renderForm(contactForm) }}
+	</section>
+{% endblock %}

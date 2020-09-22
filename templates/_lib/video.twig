@@ -1,0 +1,43 @@
+{% set video = video|default %}
+{% set src = video.url|default(false) %}
+{% set mimeType = video.mimeType %}
+{% set fit = fit|default %}
+{% set poster = poster|default(false) %}
+{% set track = track|default(false) %}
+
+{% set autoplay = autoplay|default(true) %}
+{% set loop = loop|default(true) %}
+{% set muted = muted|default(true) %}
+{% set controls = controls|default(false) %}
+{% set preload = preload|default('auto') %}
+
+{% set attr = {
+	class: [
+		fit ? 'absolute inset-0 h-full w-full',
+		fit == 'cover' ? 'object-cover',
+		fit == 'contain' ? 'object-contain',
+		extClass|default
+	],
+	poster: poster,
+	autoplay: autoplay,
+	loop: loop,
+	muted: muted,
+	controls: controls,
+	preload: preload
+}|merge(extAttr|default({})) %}
+
+{% set attrSource = {
+	class: [
+		extClassSource|default
+	],
+	src: src,
+	type: mimeType
+}|merge(extAttrSource|default({})) %}
+
+{% if video and src %}
+<video {{attr(attr)}}>
+	<source {{attr(attrSource)}} />
+	{% if track %}<track default="" src="{{ track }}">{% endif %}
+</video>
+{% endif %}
+

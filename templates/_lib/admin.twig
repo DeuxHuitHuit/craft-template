@@ -1,0 +1,46 @@
+{% if craft.app.getuser and craft.app.getuser.getIdentity and craft.app.getuser.getIdentity.can('accessCp') %}
+	{% set currentElement = craft.app.urlManager.matchedElement %}
+	{% set editUrl = currentElement.cpEditUrl|default %}
+	{% set sites = craft.app.getSites().getGroupById(currentSite.groupId).getSites() %}
+	{% set links = [] %}
+	{% set qs = craft.app.request.queryParams %}
+
+	{% for site in sites if site.baseUrl is not empty %}
+		{% set title = craft.app.i18n.getLocaleById(site.language).nativeName %}
+		{% set url = site.getBaseUrl() %}
+		{% if currentElement %}
+			{% set otherLocaleElement = craft.app.getElements().getElementById(currentElement.id, currentElement.className(), site.id) %}
+			{% if otherLocaleElement and otherLocaleElement.enabledForSite %}
+				{% set url = otherLocaleElement.url %}
+			{% endif %}
+		{% endif %}
+
+		{% set links = links|merge([{
+			url: url,
+			current: site.id == currentSite.id ? true : false,
+			language: title
+		}]) %}
+	{% endfor %}
+
+	{% if qs['x-craft-live-preview'] is not defined %}
+		<div id="admin-menu">
+			<a href="{{ cpUrl() }}" target="_blank" class="admin-menu-toggle">
+				<svg viewBox="0 0 36 36">
+					<path d="M31.8576 0.753906H3.74795C1.66576 0.753906 0 2.36635 0 4.3819V31.5919C0 33.6074 1.66576 35.2198 3.74795 35.2198H31.8576C33.8981 35.2198 35.6055 33.6074 35.6055 31.5919V4.3819C35.6055 2.36635 33.9398 0.753906 31.8576 0.753906ZM17.7403 21.756C18.9063 21.756 20.1557 21.3125 21.3633 20.2645L23.0291 22.1188C21.28 23.4893 19.2811 24.2552 17.2822 24.2552C13.3261 24.2552 10.8274 21.7156 11.4104 18.128C11.9934 14.5403 15.3666 12.0007 19.3228 12.0007C21.2384 12.0007 23.0291 12.7263 24.2784 14.0566L21.9463 15.9109C21.28 15.0643 20.1557 14.5 18.9063 14.5C16.5326 14.5 14.7003 15.9915 14.3255 18.128C13.9924 20.2645 15.325 21.756 17.7403 21.756Z" fill="#33404D"/>
+				</svg>
+			</a>
+			<div class="admin-menu-tools">
+				<select onChange="window.document.location.href=this.options[this.selectedIndex].value;">
+					<option disabled selected>Languages</option>
+					{% for link in links %}
+						<option value="{{ link.url }}">{{ link.language }}</option>
+					{% endfor %}
+				</select>
+				{% if editUrl %}
+				<a href="{{ editUrl }}" target="_blank">Edit</a>
+				{% endif %}
+				
+			</div>
+		{% endif %}
+	</div>
+{% endif %}

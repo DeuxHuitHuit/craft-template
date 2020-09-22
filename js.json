@@ -6,7 +6,6 @@
 	"sources": [
 		"core/framework.min.js",
 
-		"fx/tracking.js",
 		"fx/compute-options.js",
 		"fx/change-state.js",
 
