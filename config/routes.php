@@ -19,5 +19,6 @@
  */
 
 return [
-
+	'sitemap.xml' => ['template' => '_feeds/sitemap.xml.twig'],
+	'sitemap' => ['template' => '_feeds/sitemap.twig'],
 ];
