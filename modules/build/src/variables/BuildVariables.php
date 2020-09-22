@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2020 Deux Huit Huit
  */
 
-namespace modules\buildmodule\variables;
+namespace modules\build\variables;
 
-use modules\buildmodule\BuildModule;
+use modules\build\Build;
 
 use Craft;
 
@@ -18,15 +18,15 @@ use Craft;
  * Build Variable
  *
  * Craft allows modules to provide their own template variables, accessible from
- * the {{ craft }} global variable (e.g. {{ craft.buildModule }}).
+ * the {{ craft }} global variable (e.g. {{ craft.build }}).
  *
  * https://craftcms.com/docs/plugins/variables
  *
  * @author    Deux Huit Huit
- * @package   BuildModule
+ * @package   Build
  * @since     0.1.0
  */
-class BuildModuleVariable
+class BuildVariable
 {
     // Public Methods
     // =========================================================================
@@ -80,7 +80,7 @@ class BuildModuleVariable
         $devServerHost = '.288dev.com';
         $qs = Craft::$app->request->queryParams;
         $isLivereloadInQuery = isset($qs['livereload']);
-        $inDevServer = strpos(Craft::$app->request->hostName, $devServerHost) !== false;
+        $inDevServer = strpos(Craft::$app->request->hostName, $devServerHost) !== false && Craft::$app->config->env === 'dev';
         $cookieTime = 2123798400;
         $cookieSet = isset($_COOKIE['livereload']);
 
@@ -118,7 +118,7 @@ class BuildModuleVariable
         $devServerHost = '.288dev.com';
         $qs = Craft::$app->request->queryParams;
         $isUseDevInQuery = isset($qs['use-dev']);
-        $inDevServer = strpos(Craft::$app->request->hostName, $devServerHost) !== false;
+        $inDevServer = strpos(Craft::$app->request->hostName, $devServerHost) !== false && Craft::$app->config->env === 'dev';
         $cookieTime = 2123798400;
         $cookieSet = isset($_COOKIE['use-dev']);
 
