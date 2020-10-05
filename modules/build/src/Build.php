@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2020 Deux Huit Huit
  */
 
-namespace modules\buildmodule;
+namespace modules\build;
 
-use modules\buildmodule\variables\BuildModuleVariable;
+use modules\build\variables\BuildVariable;
 
 use Craft;
 use craft\web\twig\variables\CraftVariable;
@@ -30,20 +30,20 @@ use yii\base\Module;
  * https://craftcms.com/docs/plugins/introduction
  *
  * @author    Deux Huit Huit
- * @package   BuildModule
+ * @package   Build
  * @since     0.1.0
  *
  */
-class BuildModule extends Module
+class Build extends Module
 {
     // Static Properties
     // =========================================================================
 
     /**
      * Static property that is an instance of this module class so that it can be accessed via
-     * BuildModule::$instance
+     * Build::$instance
      *
-     * @var BuildModule
+     * @var Build
      */
     public static $instance;
 
@@ -55,7 +55,7 @@ class BuildModule extends Module
      */
     public function __construct($id, $parent = null, array $config = [])
     {
-        Craft::setAlias('@modules/buildmodule', $this->getBasePath());
+        Craft::setAlias('@modules/build', $this->getBasePath());
 
         // Set this as the global instance of this module class
         static::setInstance($this);
@@ -65,7 +65,7 @@ class BuildModule extends Module
 
     /**
      * Set our $instance static property to this class so that it can be accessed via
-     * BuildModule::$instance
+     * Build::$instance
      *
      * Called after the module class is instantiated; do any one-time initialization
      * here such as hooks and events.
@@ -86,8 +86,7 @@ class BuildModule extends Module
             function (Event $event) {
                 /** @var CraftVariable $variable */
                 $variable = $event->sender;
-                $variable->set('buildModule', BuildModuleVariable::class);
-                $variable->set('build', BuildModuleVariable::class);
+                $variable->set('build', BuildVariable::class);
             }
         );
 

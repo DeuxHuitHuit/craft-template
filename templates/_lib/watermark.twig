@@ -1,0 +1,9 @@
+{% set origin %}
+	{% if craft.build.debug %}
+		https://watermark.288dev.com
+	{% else %}
+		https://watermark.deuxhuithuit.com
+	{% endif %}
+{% endset %}
+
+<div class="js-watermark-ctn" data-href="{{ origin|trim }}/v3/?lang={{ craft.app.locale.id }}&ref={{ craft.build.package.name }}"></div>

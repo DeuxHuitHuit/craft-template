@@ -8,6 +8,8 @@
  * @see \craft\config\GeneralConfig
  */
 
+use craft\helpers\App;
+
 return [
     // Global settings
     '*' => [
@@ -18,16 +20,29 @@ return [
         'omitScriptNameInUrls' => true,
 
         // Control Panel trigger word
-        'cpTrigger' => 'admin',
+        'cpTrigger' => 'craft',
 
         // The secure key Craft will use for hashing and encrypting data
-        'securityKey' => getenv('SECURITY_KEY'),
+        'securityKey' => App::env('SECURITY_KEY'),
 
-        // Whether to save the project config out to config/project.yaml
-        // (see https://docs.craftcms.com/v3/project-config.html)
-        'useProjectConfigFile' => false,
+        'addTrailingSlashesToUrls' => true,
 
-        'theme' => require(__dir__ . '/theme.php'),
+        'limitAutoSlugsToAscii' => true,
+
+        'useEmailAsUsername' => true,
+
+        'errorTemplatePrefix' => '_pages/errors/',
+
+        'gtmId' => '',
+
+        'extraAllowedFileExtensions' => ['vtt'],
+
+        'extraFileKinds' => [
+            'track' => [
+                'label' => 'Track',
+                'extensions' => ['vtt',],
+            ],
+        ],
     ],
 
     // Dev environment settings
@@ -46,5 +61,6 @@ return [
     'production' => [
         // Set this to `false` to prevent administrative changes from being made on production
         'allowAdminChanges' => true,
+        'allowUpdates' => false
     ],
 ];

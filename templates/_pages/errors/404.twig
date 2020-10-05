@@ -1,0 +1,11 @@
+{% extends "_masters/page.twig" %}
+
+{% set surtitle = "Page Not Found"|t %}
+{% set title = "404. That’s an error."|t %}
+{% set text = "The requested URL {url} was not found on this server."|t(params = {
+	url: craft.app.request.absoluteUrl
+}) %}
+
+{% block page %}
+	{% include "_layouts/error" %}
+{% endblock %}

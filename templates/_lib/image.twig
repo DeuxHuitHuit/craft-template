@@ -2,7 +2,7 @@
 
 {#
 	IMAGE
-	
+
 	image: A Craft CMS Asset of type image
 	src: Original source of image
 	alt: Alt property of image
@@ -12,7 +12,7 @@
 	transform{}: A Craft CMS Image Transform hash
 	@TODO - sources[]: List of different images for art direction purposes
 
-	Responsive images: https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images 
+	Responsive images: https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images
 
 #}
 
@@ -30,7 +30,6 @@
 {% set transform = transform|default({
 	quality: 80,
 }) %}
-{% set mimeType = image.mimeType|default %}
 {% set useSizes = (shouldUseSizes ?? true) and utils.isValidMimeType(image) == 'yes' %}
 {% set srcsetAttr = utils.getSrcsetAttr(image, sizes, transform)|default(false) %}
 {% set sizesAttr = utils.getSizesAttr(sizes)|default(false) %}
@@ -57,7 +56,8 @@
 	alt: alt,
 	width: image.width|default(false),
 	height: image.height|default(false),
-	style: focal ?: false, 
+	style: focal ?: false,
+	loading: 'lazy',
 }|merge(extAttrImg|default({})) %}
 
 

@@ -1,0 +1,8 @@
+{% extends "_masters/page.twig" %}
+
+{% set title = "Site Offline"|t %}
+{% set text = "This website is currently offline"|t %}
+
+{% block page %}
+	{% include "_layouts/error" %}
+{% endblock %}

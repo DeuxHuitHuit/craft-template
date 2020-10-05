@@ -1,0 +1,14 @@
+/* Base */
+@import 'tailwind/base.css';
+@import 'base/fonts.css';
+@import 'base/site.css';
+
+/* Components */
+@import 'tailwind/components.css';
+@import 'components/formie.css';
+
+/* Utils */
+@import 'tailwind/utilities.css';
+
+/* Admin */
+@import 'lib/admin.css';

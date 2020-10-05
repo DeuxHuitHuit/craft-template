@@ -1,0 +1,20 @@
+{#
+	css.json implementation for craft/twig
+
+	* add <link href="?" /> tags for every sheets in css.json
+	* serves a build version of the css if not in debug mode
+	* add the livereload lib if the cookie is set
+
+	@author Deux Huit Huit | fhamon
+	@since 0.1.0
+#}
+{% if craft.build.debug %}
+	{% for sources in craft.build.css.sources %}
+		<link rel="stylesheet" type="text/css" href="/assets/css/pre-build/{{ sources }}"/>
+	{% endfor %}
+{% else %}
+	{% set cssFile %}/web/assets/css/{{ craft.build.package.name }}.min.css{% endset %}
+	{% set cacheBusterCSSFile %}/assets/css/{{ craft.build.package.name }}.min.{{ craft.build.package.version }}.{{ craft.build.build.lastBuild }}.css{% endset %}
+
+	<link rel="stylesheet" type="text/css" href="{{ cacheBusterCSSFile }}" integrity="{{ craft.build.integrity(cssFile) }}"/>
+{% endif %}

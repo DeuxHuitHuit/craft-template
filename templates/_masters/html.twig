@@ -1,0 +1,34 @@
+{% set locale = craft.app.locale() %}
+
+{% spaceless %}
+<!DOCTYPE html>
+<html lang="{{ locale.id }}" data-version="{{ craft.build.package.version }}.{{ craft.build.build.lastBuild }}">
+	<head>
+		<title>{{ pageTitle }}</title>
+		<meta name="description" content="{{ pageDescription }}">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+		<meta name="referrer" content="origin-when-cross-origin"/>
+		<link rel="canonical" href="{{ pageUrl }}" />
+		{% include "_metas/open-graph" %}
+		{% include "_metas/twitter-card" %}
+		{% include "_masters/favicon.twig" %}
+		{% include "_masters/alternates.twig" %}
+		{% include "_masters/fonts.twig" with {fonts: ['TODO']} %}
+		{% include "_masters/css.twig" %}
+		{% include "_masters/utils/livereload.twig" %}
+		{% include "_lib/gtm-head" %}
+		{% block head %}{% endblock %}
+	</head>
+	<body class="min-w-min">
+		{% include "_lib/gtm-body" %}
+		<div id="site">
+		{% block site %}{% endblock %}
+		</div>
+		{% include "_masters/js.twig" %}
+		{% include "_lib/admin.twig" %}
+	</body>
+</html>
+<!-- cache-stamp: {{ 'now'|date('Y-m-d\\TH:i')}} -->
+{% endspaceless %}
