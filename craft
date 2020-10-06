@@ -1,4 +1,4 @@
-#!/usr/bin/env php
+#!/usr/bin/env ea-php73
 <?php
 /**
  * Craft console bootstrap file
