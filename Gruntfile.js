@@ -5,8 +5,7 @@ module.exports = (grunt) => {
 
 	grunt.initConfig({
 		pkg: pkg,
-		buildnum: {},
-		svninfo: {}
+		buildnum: {}
 	});
 
 	const tasks = grunt.file.expand({ filter: 'isFile', cwd: 'tasks' }, ['*']);
@@ -22,15 +21,14 @@ module.exports = (grunt) => {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-csso');
 	grunt.loadNpmTasks('grunt-ftp-push');
-	grunt.loadNpmTasks('grunt-svninfo');
 	grunt.loadNpmTasks('grunt-babel');
 	grunt.loadNpmTasks('grunt-complexity');
 
 	grunt.registerTask('dev-js', ['complexity', 'jshint']);
 	grunt.registerTask('dev', ['dev-js']);
 
-	grunt.registerTask('js', ['clean:js', 'libs', 'dev-js', 'concat:js', 'babel', 'svninfo', 'headers:js']);
-	grunt.registerTask('css', ['clean:css', 'postcss', 'concat:css', 'purgecss', 'csso', 'svninfo', 'headers:css']);
+	grunt.registerTask('js', ['dev-js', 'clean:js', 'libs', 'concat:js', 'babel', 'headers:js']);
+	grunt.registerTask('css', ['clean:css', 'postcss', 'concat:css', 'purgecss', 'csso', 'headers:css']);
 	grunt.registerTask('build', ['buildnum', 'css', 'js']);
 
 	grunt.registerTask('push', ['ftp_push:css', 'ftp_push:js', 'ftp_push:build']);

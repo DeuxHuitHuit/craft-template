@@ -1,6 +1,7 @@
 const postcss = require('postcss');
 
 module.exports = (grunt) => {
+	'use strict';
 
 	const cssJson = grunt.file.readJSON('css.json');
 	const cssFiles = cssJson.sources.map((source) => { return `web/assets/css/${source}` });
@@ -9,6 +10,8 @@ module.exports = (grunt) => {
 		postcss: {
 			options: {
 				processors: [
+					require('postcss-import')(),
+					require('postcss-nested')(),
 					require('tailwindcss')(),
 					require('autoprefixer')()
 				],
@@ -39,7 +42,6 @@ module.exports = (grunt) => {
 					encoding: 'UTF-8'
 				});
 			}).catch((error) => {
-				console.log(error);
 				grunt.log.error(error);
 			});
 		}

@@ -30,15 +30,6 @@ module.exports = function buildnum(grunt) {
 
 				b.date = (new Date()).toISOString();
 
-				const svn = grunt.config.get('svninfo');
-				if (!!svn) {
-					b.svn = {
-						rev: svn.rev,
-						last: svn.last,
-						url: svn.url
-					};
-				}
-
 				grunt.file.write(options.file, JSON.stringify(b, null, 4));
 
 				return b.lastBuild;

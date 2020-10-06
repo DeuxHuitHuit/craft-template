@@ -34,27 +34,22 @@ return [
         'errorTemplatePrefix' => '_pages/errors/',
 
         'gtmId' => '',
-
-        'extraAllowedFileExtensions' => ['vtt'],
-
-        'extraFileKinds' => [
-            'track' => [
-                'label' => 'Track',
-                'extensions' => ['vtt',],
-            ],
-        ],
     ],
 
     // Dev environment settings
     'dev' => [
         // Dev Mode (see https://craftcms.com/guides/what-dev-mode-does)
         'devMode' => true,
+
+        'disallowRobots' => true,
     ],
 
     // Staging environment settings
     'staging' => [
         // Set this to `false` to prevent administrative changes from being made on staging
         'allowAdminChanges' => true,
+
+        'disallowRobots' => true,
     ],
 
     // Production environment settings

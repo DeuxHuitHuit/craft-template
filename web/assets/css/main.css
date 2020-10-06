@@ -5,7 +5,6 @@
 
 /* Components */
 @import 'tailwind/components.css';
-@import 'components/formie.css';
 
 /* Utils */
 @import 'tailwind/utilities.css';

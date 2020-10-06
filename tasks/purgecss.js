@@ -11,7 +11,22 @@ module.exports = (grunt) => {
 
 					],
 					whitelistPatterns: [
-
+						/^is-/,
+						/^has-/
+					],
+					whitelistPatternsChildren: [
+						/^is-/,
+						/^has-/
+					],
+					extractors: [
+						{
+							extractor: (content) => {
+								const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [];
+								const innerMatches = content.match(/[^<>"'`\s.()]*[^<>"'`\s.():]/g) || [];
+								return broadMatches.concat(innerMatches);
+							},
+							extensions: ['twig', 'js']
+						}
 					]
 				},
 				files: [{
