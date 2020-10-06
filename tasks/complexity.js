@@ -7,11 +7,14 @@ module.exports = (grunt) => {
 		complexity: {
 			generic: {
 				src: jsFiles,
+				exclude: [
+					'web/assets/js/utils/keys.js'
+				],
 				options: {
 					errorsOnly: false,
 					cyclomatic: 15,
 					halstead: 25,
-					maintainability: 100
+					maintainability: 90
 				}
 			}
 		}

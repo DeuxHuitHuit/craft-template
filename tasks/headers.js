@@ -4,7 +4,7 @@ module.exports = (grunt) => {
 		headers: {
 			options: {
 				content: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-					'r<%= svninfo.last ? svninfo.last.rev : "x" %> - build <%= buildnum.num ? buildnum.num : "x" %> - ' +
+					'build <%= buildnum.num ? buildnum.num : "x" %> - ' +
 					'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
 					'<%= pkg.homepage ? " * " + pkg.homepage + "\\n" : "" %>' +
 					' * Copyright (c) <%= grunt.template.today("yyyy") %> ' +

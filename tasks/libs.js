@@ -3,7 +3,7 @@ const axios = require('axios');
 module.exports = (grunt) => {
 
 	const jsJson = grunt.file.readJSON('js.json');
-	const libs = jsJson.before.concat(jsJson.after);
+	const libs = jsJson.before.concat(jsJson.before);
 
 	grunt.config.merge({
 		libs: {
