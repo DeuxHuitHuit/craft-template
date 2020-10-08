@@ -5,10 +5,10 @@
 {% set poster = poster|default(false) %}
 {% set track = track|default(false) %}
 
-{% set autoplay = autoplay|default(true) %}
-{% set loop = loop|default(true) %}
-{% set muted = muted|default(true) %}
-{% set controls = controls|default(false) %}
+{% set isAutoplay = isAutoplay|default(true) %}
+{% set isLoop = isLoop|default(true) %}
+{% set isMuted = isMuted|default(true) %}
+{% set hasControls = hasControls|default(false) %}
 {% set preload = preload|default('auto') %}
 
 {% set attr = {
@@ -19,10 +19,10 @@
 		extClass|default
 	],
 	poster: poster,
-	autoplay: autoplay,
-	loop: loop,
-	muted: muted,
-	controls: controls,
+	autoplay: isAutoplay,
+	loop: isLoop,
+	muted: isMuted,
+	controls: hasControls,
 	preload: preload
 }|merge(extAttr|default({})) %}
 
