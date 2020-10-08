@@ -6,14 +6,14 @@
 {% set url = oembed.url|default %}
 {% set oembedId = provider == 'YouTube' and url ? url : (oembed.id ?: false) %}
 {% set autoLoad = autoLoad|default('none') %}
-{% set isAutoPlay = isAutoPlay|default(true) %}
+{% set isAutoplay = isAutoplay|default(true) %}
 
 {% set videoAttr = {
 	data: {
 		'oembed-provider': provider,
 		'oembed-title': title,
 		'oembed-id': oembedId,
-		'autoplay': isAutoPlay ? 1 : false,
+		'autoplay': isAutoplay ? 1 : false,
 		'autoload': autoLoad,
 		'rel': 0
 	}
