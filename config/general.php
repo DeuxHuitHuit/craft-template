@@ -34,6 +34,8 @@ return [
         'errorTemplatePrefix' => '_pages/errors/',
 
         'gtmId' => '',
+
+        'upscaleImages' => false,
     ],
 
     // Dev environment settings
