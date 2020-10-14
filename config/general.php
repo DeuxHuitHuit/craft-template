@@ -36,6 +36,8 @@ return [
         'gtmId' => '',
 
         'upscaleImages' => false,
+
+        'transformGifs' => false,
     ],
 
     // Dev environment settings
