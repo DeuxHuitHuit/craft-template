@@ -24,7 +24,13 @@ return [
     'modules' => [
         'build' => [
             'class' => \modules\build\Build::class,
+        ],
+        'language-redirect' => [
+            'class' => \modules\languageRedirect\LanguageRedirect::class,
         ]
     ],
-    'bootstrap' => ['build'],
+    'bootstrap' => [
+        'build',
+        'language-redirect'
+    ],
 ];

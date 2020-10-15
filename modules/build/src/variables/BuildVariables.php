@@ -14,22 +14,9 @@ use modules\build\Build;
 
 use Craft;
 
-/**
- * Build Variable
- *
- * Craft allows modules to provide their own template variables, accessible from
- * the {{ craft }} global variable (e.g. {{ craft.build }}).
- *
- * https://craftcms.com/docs/plugins/variables
- *
- * @author    Deux Huit Huit
- * @package   Build
- * @since     0.1.0
- */
+
 class BuildVariable
 {
-    // Public Methods
-    // =========================================================================
 
     private function loadJson($file = null)
     {
