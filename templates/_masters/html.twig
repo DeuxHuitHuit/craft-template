@@ -1,8 +1,10 @@
 {% set locale = craft.app.locale() %}
+{% set sites = craft.app.sites.getAllSites() %}
+{% set locales = sites|map(s => s.language)|join(',') %}
 
 {% spaceless %}
 <!DOCTYPE html>
-<html lang="{{ locale.id }}" data-version="{{ craft.build.package.version }}.{{ craft.build.build.lastBuild }}">
+<html lang="{{ locale.id }}" data-all-langs="{{ locales }}" data-version="{{ craft.build.package.version }}.{{ craft.build.build.lastBuild }}">
 	<head>
 		<title>{{ pageTitle }}</title>
 		<meta name="description" content="{{ pageDescription }}">
