@@ -9,8 +9,10 @@
 	{% block siteHeader %}
 		{% include "_site/header" %}
 	{% endblock %}
-	<div id="page" class="page">
-		{% block page %}{% endblock %}
+	<div id="pages">
+		<div class="page" data-page-url="{{ pageUrl }}">
+			{% block page %}{% endblock %}
+		</div>
 	</div>
 	{% block siteFooter %}
 		{% include "_site/footer" %}
