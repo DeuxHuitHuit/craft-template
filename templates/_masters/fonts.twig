@@ -1,5 +1,3 @@
-{% set fonts = fonts|default %}
-
-{% for font in fonts %}
+{% for font in craft.build.fonts %}
 	<link rel="preload" href="/assets/fonts/{{ font }}.woff2" as="font" crossorigin />
 {% endfor %}
