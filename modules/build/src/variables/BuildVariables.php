@@ -60,6 +60,24 @@ class BuildVariable
     {
         return $this->loadJson('/package.json');
     }
+    
+    public function fonts()
+    {
+		$fontsPath = CRAFT_BASE_PATH.'/web/assets/fonts/';
+		$fonts = array();
+		$files = array_diff(scandir($fontsPath), array('.', '..'));;
+
+		forEach ($files as $file)
+		{
+			$font = explode('.', $file)[0];
+
+			if (!in_array($font, $fonts)) {
+				array_push($fonts, $font);
+			}
+		}
+
+		return $fonts;
+	}
 
     public function livereload()
     {
