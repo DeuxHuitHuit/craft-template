@@ -3,7 +3,7 @@
 const except = (exception, object) => {
 	let output = {};
 
-	Object.keys(object).forEach(key => {
+	Object.keys(object).forEach((key) => {
 		if (key !== exception) {
 			output[key] = object[key];
 		}
