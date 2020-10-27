@@ -1,4 +1,16 @@
 'use strict';
+
+const except = (exception, object) => {
+	let output = {};
+
+	Object.keys(object).forEach(key => {
+		if (key !== exception) {
+			output[key] = object[key];
+		}
+	});
+	return output;
+};
+
 module.exports = {
 	purge: [],
 	theme: {
@@ -120,13 +132,13 @@ module.exports = {
 			'3/4': '75%',
 			'1/2': '50%',
 			...theme('spacing'),
-			...theme('screens')
+			...except('touch', theme('screens'))
 		}),
 		minWidth: (theme) => ({
 			none: 'none',
 			full: '100%',
 			...theme('spacing'),
-			...theme('screens')
+			...except('touch', theme('screens'))
 		}),
 		fontFamily: {
 			sans: [
@@ -290,7 +302,10 @@ module.exports = {
 				'-11/12': '-91.666667%',
 				'-9/16': '-56.25%',
 				'-full': '-100%'
-			})
+			}),
+			screens: {
+				'touch': {'raw': '(hover: none)'}
+			}
 		}
 	},
 	variants: {
