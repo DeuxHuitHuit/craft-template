@@ -80,20 +80,15 @@ module.exports = {
 			thinnest: '12rem',
 			thinner: '16rem',
 			thin: '20rem',
-			'thin+': '24rem',
 			broad: '32rem',
 			broader: '40rem',
 			broadest: '48rem',
-			'broadest+': '64rem',
 			large: '82rem',
 			larger: '100rem',
 			largest: '130rem',
-			'largest+': '170rem',
 			mega: '220rem',
-			'mega+': '335rem',
 			giga: '375rem',
 			tera: '480rem',
-			'tera+': '600rem',
 			tiniest: '640rem',
 			tinier: '720rem',
 			tiny: '790rem',
@@ -124,31 +119,32 @@ module.exports = {
 			'13/20': '65%',
 			'17/20': '85%',
 			'19/20': '95%',
-			full: '100%',
-			'screen-1/4': '25vh',
-			'screen-1/2': '50vh',
-			'screen-3/4': '75vh'
+			full: '100%'
 		},
 		maxWidth: (theme) => ({
 			none: 'none',
+			auto: 'auto',
 			...theme('spacing'),
 			...theme('screens'),
 			...except('touch', theme('screens'))
 		}),
 		minWidth: (theme) => ({
 			none: 'none',
+			auto: 'auto',
 			...theme('spacing'),
 			...theme('screens'),
 			...except('touch', theme('screens'))
 		}),
 		maxHeight: (theme) => ({
 			none: 'none',
+			auto: 'auto',
 			...theme('spacing'),
 			...theme('screens'),
 			...except('touch', theme('screens'))
 		}),
 		minHeight: (theme) => ({
 			none: 'none',
+			auto: 'auto',
 			...theme('spacing'),
 			...theme('screens'),
 			...except('touch', theme('screens'))
@@ -159,7 +155,6 @@ module.exports = {
 			...theme('screens'),
 			...except('touch', theme('screens'))
 		}),
-
 		fontFamily: {
 			sans: ['Helvetica Neue', 'Arial', 'sans-serif'],
 			serif: ['Georgia', 'Times New Roman', 'serif']
