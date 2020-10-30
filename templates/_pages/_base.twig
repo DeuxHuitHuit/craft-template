@@ -1,0 +1,20 @@
+{% extends "_masters/html.twig" %}
+
+{% set pageTitle = entry.seo.one().shareTitle ?? shareTitleFallback ?? entry.displayTitle ?? entry.title ?? configuration.seo.one().shareTitle|default %}
+{% set pageDescription = entry.seo.one().shareDescription ?? shareDescriptionFallback ?? configuration.seo.one().shareDescription|default %}
+{% set pageImage = entry.seo.one().shareImage.one() ?? shareImageFallback ?? configuration.seo.one().shareImage.one()|default %}
+{% set pageUrl = craft.app.request.absoluteUrl|default %}
+
+{% block site %}
+	{% block siteHeader %}
+		{% include "_site/header" %}
+	{% endblock %}
+	<div id="pages">
+		<div class="page" data-page-url="{{ pageUrl }}">
+			{% block page %}{% endblock %}
+		</div>
+	</div>
+	{% block siteFooter %}
+		{% include "_site/footer" %}
+	{% endblock %}
+{% endblock %}
