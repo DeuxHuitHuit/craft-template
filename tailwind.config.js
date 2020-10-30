@@ -125,34 +125,29 @@ module.exports = {
 			none: 'none',
 			auto: 'auto',
 			...theme('spacing'),
-			...theme('screens'),
 			...except('touch', theme('screens'))
 		}),
 		minWidth: (theme) => ({
 			none: 'none',
 			auto: 'auto',
 			...theme('spacing'),
-			...theme('screens'),
 			...except('touch', theme('screens'))
 		}),
 		maxHeight: (theme) => ({
 			none: 'none',
 			auto: 'auto',
 			...theme('spacing'),
-			...theme('screens'),
 			...except('touch', theme('screens'))
 		}),
 		minHeight: (theme) => ({
 			none: 'none',
 			auto: 'auto',
 			...theme('spacing'),
-			...theme('screens'),
 			...except('touch', theme('screens'))
 		}),
 		inset: (theme) => ({
 			none: 'none',
 			...theme('spacing'),
-			...theme('screens'),
 			...except('touch', theme('screens'))
 		}),
 		fontFamily: {
