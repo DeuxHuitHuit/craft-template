@@ -147,6 +147,7 @@ module.exports = {
 		}),
 		inset: (theme) => ({
 			none: 'none',
+			auto: 'auto',
 			...theme('spacing'),
 			...except('touch', theme('screens'))
 		}),
