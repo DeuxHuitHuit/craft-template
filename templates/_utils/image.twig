@@ -1,31 +1,53 @@
 {% macro getSrcsetAttr(image, sizes, transform) %}
-{% if image %}
-{% for size in sizes -%}
-	{{ image.url(transform|merge({width: size.width, height: size.height})) ~ ' ' ~ size.width ~ 'w' ~ (loop.last ? '' : ', ') }}
-{%- endfor %}
-{% endif %}
+	{%- if image %}
+		{%- for size in sizes -%}
+			{%- set useFicelle = craft.app.config.general.useFicelle ?? false %}
+			{%- set ficelleEndpoint = craft.app.config.general.ficelleApiEndpoint|default %}
+			{%- if useFicelle and ficelleEndpoint %}
+				{%- set src = '?src=' ~ image.url()|raw|url_encode|default %}
+				{%- set width = (size.width > 0 ? '&width=' ~ size.width)|default %}
+				{%- set height = (size.height > 0 ? '&height=' ~ size.height)|default %}
+				{{- (ficelleEndpoint ~ src ~ width ~ height)|raw }}
+			{%- else %}
+				{{- image.url(transform|merge({width: size.width, height: size.height})) }}
+			{%- endif %}
+
+			{{- ' ' ~ size.width ~ 'w' }}
+			{{- loop.last ? '' : ', ' }}
+		{%- endfor %}
+	{%- endif %}
 {% endmacro %}
 
 {% macro getSizesAttr(sizes) %}
-{% for size in sizes -%}
-	{{  size.mq|default ~ ' ' ~ size.width ~ 'w' ~ (loop.last ? '' : ', ') }}
-{%- endfor %}
+	{%- for size in sizes -%}
+		{{- size.mq|default ~ ' ' ~ size.width ~ 'px' ~ (loop.last ? '' : ', ') }}
+	{%- endfor %}
 {% endmacro %}
 
 {% macro getFitClasses(fit) %}
-{% if fit -%}
-{{ fit ? 'w-full h-full' }} {{ fit == 'contain' ? 'object-contain' : fit == 'cover' ? 'object-cover' : fit == 'fill' ? 'object-fill' : fit == 'scale-down' ? 'object-scale-down' -}}
-{%- endif %}
+	{%- if fit %}
+		{{- fit ? 'w-full h-full' }}
+		{%- switch fit %}
+			{%- case "contain" %}
+				{{- 'object-contain' }}
+			{%- case "cover" %}
+				{{- 'object-cover' }}
+			{%- case "fill" %}
+				{{- 'object-fill' }}
+			{%- case "scale-down" %}
+				{{- 'object-scale-down' }}
+		{%- endswitch %}
+	{%- endif %}
 {% endmacro %}
 
 {% macro getFocalPoint(image) %}
-{% set focal = image.focalPoint|default({x: 0.5, y: 0.5}) %}
-{% set x = focal.x * 100 ~ '%' %}
-{% set y = focal.y * 100 ~ '%' %}
-{{- 'object-position: ' ~ x ~ ' ' ~ y ~ ';' -}}
+	{%- set focal = image.focalPoint|default({x: 0.5, y: 0.5}) %}
+	{%- set x = focal.x * 100 ~ '%' %}
+	{%- set y = focal.y * 100 ~ '%' %}
+	{{- 'object-position: ' ~ x ~ ' ' ~ y ~ ';' -}}
 {% endmacro %}
 
 {% macro isValidMimeType(image) %}
-{% set mimeType = image.mimeType|default %}
-{% if image and mimeType != 'image/gif' and mimeType != 'image/svg+xml' and mimeType != 'image/svg' and mimeType != 'image/tiff' and mimeType != 'text/plain' %}yes{% else %}no{% endif %}
+	{%- set mimeType = image.mimeType|default %}
+	{%- if image and mimeType != 'image/gif' and mimeType != 'image/svg+xml' and mimeType != 'image/svg' and mimeType != 'image/tiff' and mimeType != 'text/plain' %}yes{% else %}no{% endif %}
 {% endmacro %}

@@ -38,6 +38,10 @@ return [
         'upscaleImages' => false,
 
         'transformGifs' => false,
+
+        // Use Ficelle service for images instead of Craft Image Transforms
+        'useFicelle' => false,
+        'ficelleApiEndpoint' => 'https://ficelle.app/v1/'
     ],
 
     // Dev environment settings
