@@ -7,7 +7,7 @@ module.exports = function shopify(grunt) {
 	grunt.config.merge({
 		jshint: {
 			options: {
-				esversion: 6,
+				esversion: 9,
 				bitwise: false,
 				camelcase: false,
 				curly: true,
