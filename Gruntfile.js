@@ -28,7 +28,14 @@ module.exports = (grunt) => {
 	grunt.registerTask('dev', ['dev-js']);
 
 	grunt.registerTask('js', ['dev-js', 'clean:js', 'libs', 'concat:js', 'babel', 'headers:js']);
-	grunt.registerTask('css', ['clean:css', 'postcss', 'concat:css', 'purgecss', 'csso', 'headers:css']);
+	grunt.registerTask('css', [
+		'clean:css',
+		'postcss:build',
+		'concat:css',
+		'purgecss',
+		'csso',
+		'headers:css'
+	]);
 	grunt.registerTask('build', ['buildnum', 'css', 'js']);
 
 	grunt.registerTask('push', ['ftp_push:css', 'ftp_push:js', 'ftp_push:build']);

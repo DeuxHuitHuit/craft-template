@@ -5,9 +5,3 @@
 
 /* Components */
 @import 'tailwind/components.css';
-
-/* Utils */
-@import 'tailwind/utilities.css';
-
-/* Admin */
-@import 'lib/admin.css';
