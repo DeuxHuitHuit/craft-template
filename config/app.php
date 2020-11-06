@@ -29,7 +29,7 @@ return [
             'class' => \modules\languageRedirect\LanguageRedirect::class,
 		],
         'twig-extension' => [
-            'class' => \modules\twigextensionmodule\TwigExtensionModule::class,
+            'class' => \modules\twigextension\TwigExtension::class,
         ]
     ],
     'bootstrap' => [

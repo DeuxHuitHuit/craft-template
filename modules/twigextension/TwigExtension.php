@@ -4,9 +4,9 @@
  * @copyright Copyright (c) 2020 Deux Huit Huit
  */
 
-namespace modules\twigextensionmodule;
+namespace modules\twigextension;
 
-use modules\twigextensionmodule\twigextension\TwigExtension;
+use modules\twigextension\twigextension\TwigExtension as TwigExtensionClass;
 
 use Craft;
 
@@ -14,13 +14,13 @@ use yii\base\Event;
 use yii\base\InvalidConfigException;
 use yii\base\Module;
 
-class TwigExtensionModule extends Module
+class TwigExtension extends Module
 {
     public static $instance;
 
     public function __construct($id, $parent = null, array $config = [])
     {
-        Craft::setAlias('@modules/twigextensionmodule', $this->getBasePath());
+        Craft::setAlias('@modules/twigextension', $this->getBasePath());
 
         // Set this as the global instance of this module class
         static::setInstance($this);
@@ -34,7 +34,7 @@ class TwigExtensionModule extends Module
 		self::$instance = $this;
 
 		if (Craft::$app->request->getIsSiteRequest()) {
-			$extension = new TwigExtension();
+			$extension = new TwigExtensionClass();
 			Craft::$app->view->registerTwigExtension($extension);
 		}
 

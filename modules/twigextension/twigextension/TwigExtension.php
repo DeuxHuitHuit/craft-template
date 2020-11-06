@@ -5,9 +5,7 @@
  * @copyright Copyright (c) 2020 Deux Huit Huit
  */
 
-namespace modules\twigextensionmodule\twigextension;
-
-use modules\twigextensionmodule\TwigExtensionModule;
+namespace modules\twigextension\twigextension;
 
 use Craft;
 
