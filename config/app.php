@@ -27,10 +27,14 @@ return [
         ],
         'language-redirect' => [
             'class' => \modules\languageRedirect\LanguageRedirect::class,
+		],
+        'twig-extension' => [
+            'class' => \modules\twigextensionmodule\TwigExtensionModule::class,
         ]
     ],
     'bootstrap' => [
         'build',
-        'language-redirect'
+		'language-redirect',
+		'twig-extension'
     ],
 ];
