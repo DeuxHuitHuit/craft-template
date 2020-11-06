@@ -26,14 +26,14 @@ class TwigExtension extends Twig_Extension
     public function getFilters(): array
     {
         return [
-			new Twig_SimpleFilter('autoUrl', [$this, 'autoUrl'])
-		];
-	}
+            new Twig_SimpleFilter('autoUrl', [$this, 'autoUrl'])
+        ];
+    }
 
-	public function autoUrl($button) {
-		$target = $button->targetPage->one();
-		$absolute = $button->absoluteUrl;
-		$url = $target->url ?? $absolute;
-		return $url;
-	}
+    public function autoUrl($button) {
+        $target = $button->targetPage->one();
+        $absolute = $button->absoluteUrl;
+        $url = $target->url ?? $absolute;
+        return $url;
+    }
 }
