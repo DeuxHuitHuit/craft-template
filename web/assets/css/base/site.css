@@ -22,7 +22,6 @@ html {
 	--ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
 
 	font-size: calc(var(--unit-in-vw) * 3);
-	scroll-behavior: smooth;
 }
 
 body {
