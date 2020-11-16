@@ -36,6 +36,7 @@ module.exports = (grunt) => {
 		'csso',
 		'headers:css'
 	]);
+	grunt.registerTask('css-dev', ['clean:css', 'postcss', 'ftp_push:dev']);
 	grunt.registerTask('build', ['buildnum', 'css', 'js']);
 
 	grunt.registerTask('push', ['ftp_push:css', 'ftp_push:js', 'ftp_push:build']);
