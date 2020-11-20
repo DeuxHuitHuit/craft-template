@@ -12,7 +12,6 @@ const except = (exception, object) => {
 };
 
 module.exports = {
-	purge: [],
 	theme: {
 		screens: {
 			min: '200px',
@@ -248,6 +247,11 @@ module.exports = {
 		padding: ['responsive', 'first'],
 		margin: ['responsive', 'first'],
 		accessibility: ['responsive', 'focus', 'group-focus']
+	},
+	purge: {
+		mode: 'layers',
+		layers: ['base', 'components', 'utilities'],
+		content: ['./templates/**/*.twig', './web/assets/js/**/*.js']
 	},
 	plugins: []
 };
