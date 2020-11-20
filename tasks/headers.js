@@ -11,7 +11,10 @@ module.exports = (grunt) => {
 					'<%= pkg.author.name %> (<%= pkg.author.url %>);\n' +
 					' * <%= pkg.license %>\n */\n'
 			},
-			js: ['web/assets/js/<%= pkg.name %>.min.js'],
+			js: [
+				'web/assets/js/<%= pkg.name %>.min.js',
+				'web/assets/js/<%= pkg.name %>.es5.min.js'
+			],
 			css: ['web/assets/css/<%= pkg.name %>.min.css'],
 		}
 	});

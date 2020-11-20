@@ -28,7 +28,10 @@ module.exports = (grunt) => {
 			js: {
 				files: [{
 					expand: true,
-					src: ['web/assets/js/<%= pkg.name %>.min.js']
+					src: [
+						'web/assets/js/<%= pkg.name %>.min.js',
+						'web/assets/js/<%= pkg.name %>.es5.min.js'
+					]
 				}]
 			},
 			build: {

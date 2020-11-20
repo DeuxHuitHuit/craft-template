@@ -22,9 +22,12 @@
 	{% endfor %}
 {% else %}
 	{% set jsFile %}/web/assets/js/{{ craft.build.package.name }}.min.js{% endset %}
+	{% set jsEs5File %}/web/assets/js/{{ craft.build.package.name }}.es5.min.js{% endset %}
 	{% set cacheBusterJsFile %}/assets/js/{{ craft.build.package.name }}.min.{{ craft.build.package.version }}.{{ craft.build.build.lastBuild }}.js{% endset %}
+	{% set cacheBusterJsEs5File %}/assets/js/{{ craft.build.package.name }}.es5.min.{{ craft.build.package.version }}.{{ craft.build.build.lastBuild }}.js{% endset %}
 
 	<script src="{{ cacheBusterJsFile }}" integrity="{{ craft.build.integrity(jsFile) }}"></script>
+	<script nomodule src="{{ cacheBusterJsEs5File }}" integrity="{{ craft.build.integrity(jsEs5File) }}"></script>
 {% endif %}
 
 {% for sources in craft.build.js.after %}
@@ -37,19 +40,9 @@
 <script>
 (function () {
 	'use strict';
-	App.pages.create({key: '#page', routes: ['{{ craft.app.request.url|default('/')|split('?')|first }}']},'default');
 {% if craft.build.debug %}
 	App.debug(true);
 {% endif %}
 	App.run('#site');
 })();
-</script>
-
-{% set csrfToken = {
-	key: craft.app.config.general.csrfTokenName,
-	value: craft.app.request.csrfToken,
-} %}
-
-<script type="text/javascript">
-    window.CSRF = {{ csrfToken|json_encode|raw }};
 </script>

@@ -27,8 +27,9 @@ module.exports = (grunt) => {
 	grunt.registerTask('dev-js', ['complexity', 'jshint']);
 	grunt.registerTask('dev', ['dev-js']);
 
-	grunt.registerTask('js', ['dev-js', 'clean:js', 'libs', 'concat:js', 'babel', 'headers:js']);
+	grunt.registerTask('js', ['dev-js', 'clean:js', 'libs', 'concat:js', 'babel:es5', 'babel:modern', 'headers:js']);
 	grunt.registerTask('css', ['clean:css', 'postcss:build', 'concat:css', 'csso', 'headers:css']);
+
 	grunt.registerTask('css-dev', ['clean:css', 'postcss', 'ftp_push:dev']);
 	grunt.registerTask('build', ['env:build', 'buildnum', 'css', 'js']);
 
