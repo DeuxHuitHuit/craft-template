@@ -40,7 +40,6 @@
 <script>
 (function () {
 	'use strict';
-	App.pages.create({key: '#page', routes: ['{{ craft.app.request.url|default('/')|split('?')|first }}']},'default');
 {% if craft.build.debug %}
 	App.debug(true);
 {% endif %}

@@ -10,10 +10,10 @@
 		"fx/compute-options.js",
 		"fx/change-state.js",
 
+		"modules/ajax.js",
+		"modules/url-changer.js",
 		"modules/link-selector.js",
-		"modules/watermark.js",
-
-		"pages/default.js"
+		"modules/watermark.js"
 	],
 	"after": [
 
