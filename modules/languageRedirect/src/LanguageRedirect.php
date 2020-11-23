@@ -41,6 +41,11 @@ class LanguageRedirect extends Module
         $path = $request->fullPath;
         $firstFrag = current(explode('/', $path));
         $sites = Craft::$app->sites->allSites;
+
+        if (count($sites) <= 1) {
+            return;
+        }
+
         $supportedLangs = [];
         foreach ($sites as $site) {
             $supportedLangs[$site->language] = $site->getBaseUrl();

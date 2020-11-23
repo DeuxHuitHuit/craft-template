@@ -63,21 +63,25 @@ class BuildVariable
     
     public function fonts()
     {
-		$fontsPath = CRAFT_BASE_PATH.'/web/assets/fonts/';
-		$fonts = array();
-		$files = array_diff(scandir($fontsPath), array('.', '..'));;
+        $fontsPath = CRAFT_BASE_PATH.'/web/assets/fonts/';
+        $fonts = [];
 
-		forEach ($files as $file)
-		{
-			$font = explode('.', $file)[0];
+        if (!@is_dir($fontsPath)) {
+            return $fonts;
+        }
 
-			if (!in_array($font, $fonts)) {
-				array_push($fonts, $font);
-			}
-		}
+        $files = array_diff(scandir($fontsPath), array('.', '..'));
 
-		return $fonts;
-	}
+        foreach ($files as $file => $value) {
+            $font = explode('.', $file)[0];
+
+            if (!in_array($font, $fonts)) {
+                array_push($fonts, $font);
+            }
+        }
+
+        return $fonts;
+    }
 
     public function livereload()
     {

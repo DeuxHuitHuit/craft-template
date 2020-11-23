@@ -25,16 +25,16 @@ return [
         'build' => [
             'class' => \modules\build\Build::class,
         ],
-        'language-redirect' => [
+        'languageRedirect' => [
             'class' => \modules\languageRedirect\LanguageRedirect::class,
-		],
-        'twig-extension' => [
+        ],
+        'twigExtension' => [
             'class' => \modules\twigextension\TwigExtension::class,
         ]
     ],
     'bootstrap' => [
         'build',
-		'language-redirect',
-		'twig-extension'
+        'languageRedirect',
+        'twigExtension'
     ],
 ];
