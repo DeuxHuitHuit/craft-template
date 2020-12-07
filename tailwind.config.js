@@ -152,8 +152,8 @@ module.exports = {
 			...except('touch', theme('screens'))
 		}),
 		fontFamily: {
-			sans: ['Helvetica Neue', 'Arial', 'sans-serif'],
-			serif: ['Georgia', 'Times New Roman', 'serif']
+			base: ['Helvetica Neue', 'Arial', 'sans-serif'],
+			alt: ['Georgia', 'Times New Roman', 'serif']
 		},
 		fontSize: {
 			miniature: '12rem',
