@@ -1,0 +1,151 @@
+######                          #     #                   #     #               
+#     # ###### #    # #    #    #     # #    # # #####    #     # #    # # #####
+#     # #      #    #  #  #     #     # #    # #   #      #     # #    # #   #  
+#     # #####  #    #   ##      ####### #    # #   #      ####### #    # #   #  
+#     # #      #    #   ##      #     # #    # #   #      #     # #    # #   #  
+#     # #      #    #  #  #     #     # #    # #   #      #     # #    # #   #  
+######  ######  ####  #    #    #     #  ####  #   #      #     #  ####  #   #  
+
+
+# The humans behind this site
+# Les humains derrière ce site
+# humanstxt.org
+
+Made with love by Deux Huit Huit.
+Fait avec beaucoup d'amour par Deux Huit Huit.
+https://deuxhuithuit.com/
+
+
+/* TEAM */
+/* EQUIPE */
+
+Louis-Pierre Chouinard
+Associé Co-Fondateur, Directeur de création | Creative Director, Co-Founder, Partner
+
+Alex Leduc
+Associé Co-Fondateur, Directeur des innovations design | Chief Design Officer, Co-Founder, Partner
+
+Gabrielle N. Viau
+Directrice générale, Associée | General Manager, Partner
+
+Nicolas Brassard-Ferron
+Directeur technique, Associé | Chief Technology Officer, Partner
+
+Patrick Martel
+Développeur Full-Stack, Sénior | Full-Stack Developer, Senior
+
+Dominic Blain
+Chef du développement | Dominic Blain, Technology Team - Lead Dev
+
+Frederick Hamon
+Chef de l'innovation | Innovation Team - Lead
+
+Vincent Rouleau
+Gestionnaire technique | Technical Project Manager
+
+François Tessier
+Gestionnaire technique | Technical Project Manager
+
+Samuel Le Flaguais
+Développeur | Developer
+
+Arnaud Crevier
+Développeur Back-End | Back-End Developer
+
+François St-Germain
+Développeur | Developer
+
+Félix Guérin
+Développeur | Developer
+
+Dominique Provencher
+Développeur Front-End | Front-End Developer
+
+Martin Desaulniers
+Développeur Back-End | Back-End Developer
+
+Olivier Lepage
+Développeur Front-End | Front-End Developer
+
+Marie-France Latour
+Stratège de marque et de produits numériques | Brand & Digital Product Strategist
+
+David Fuenzalida
+Stratège de marque et de produits numériques | and & Digital Product Strategist
+
+Bruno Larivière
+Stratège de produits numériques | Digital Product Strategist
+
+Anne Sylvestre
+Directrice artistique et Productrice de contenu visuel | Art Director, Visual Content Producer
+
+Xavier Coulombe-Murray
+Designer de produits numériques, Sénior | Senior Product Designer
+
+Xavier-Cédric Gareau
+Designer de produits numériques, Sénior | Senior Product Designer
+
+Dominic Provost
+Designer de produits numériques | Product Designer
+
+Julien Baveye
+Designer | Designer
+
+Claire Bernard
+Designer d'expérience utilisateur | UX Designer
+
+Rebecca Dziedzic
+Conseillère | Account Manager
+
+Elena Naggiar Ferreira
+Conseillère | Account Manager
+
+Camille Dolbec
+Conseillère | Account Manager
+
+Sandrine Turcotte
+Gestionnaire de projets | Project Manager
+
+Jolen Côté Croteau
+Gestionnaire de projets | Project Manager
+
+Jésabel St-Jean
+Gestionnaire de projets | Project Manager
+
+Josianne Chapdelaine
+Gestionnaire de projets | Project Manager
+
+Alexandra Maurice
+Gestionnaire de projets | Project Manager
+
+Stéphanie Forget
+Gestionnaire de contenu | Content Manager
+
+Queeny Laï
+Édimestre | Webmaster
+
+Twitter: https://twitter.com/DeuxHuitHuit
+Facebook: https://www.facebook.com/DeuxHuitHuit
+Github: https://github.com/DeuxHuitHuit
+Instagram: http://instagram.com/deuxhuithuit
+Medium: https://medium.com/@DeuxHuitHuit
+Linkedin: https://www.linkedin.com/company/deux-huit-huit
+Paypal: https://paypal.me/DeuxHuitHuit
+npm: https://www.npmjs.com/org/deuxhuithuit
+
+Montréal, Québec, Canada.
+
+
+/* THANKS */
+/* MERCI */
+
+Anybody that contributed to open source projects used in this site.
+À tous ceux qui ont contribué aux logiciels opensources utilisés dans ce site.
+
+/* SITE */
+
+Standards: HTML5, CSS3, ES9
+
+Components: Tailwindcss, framework.js, jQuery, babeljs
+
+Software: Adobe Creative Suite, Eclipse, Notepad++, Sublime Text, Visual Studio Code, Bash, vi, Grunt, Blood sweat and tears
