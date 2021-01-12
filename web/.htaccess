@@ -12,7 +12,8 @@
     ### Trailing slash cond
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} /+[^\.]+$ 
+    RewriteCond %{REQUEST_URI} /+[^\.]+$
+    RewriteCond %{REQUEST_URI} !^/craft/
     RewriteRule ^(.+[^/])$ %{REQUEST_URI}/ [R=301,L]
 </IfModule>
 
