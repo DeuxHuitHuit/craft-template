@@ -30,7 +30,7 @@
 {% set transform = transform|default({
 	quality: 80,
 }) %}
-{% set useSizes = (shouldUseSizes ?? true) and utils.isValidMimeType(image) == 'yes' %}
+{% set useSizes = (shouldUseSizes ?? true) and utils.isValidMimeType(image) %}
 {% set srcsetAttr = utils.getSrcsetAttr(image, sizes, transform)|default(false) %}
 {% set sizesAttr = utils.getSizesAttr(sizes)|default(false) %}
 {% set sources = sources|default %}
