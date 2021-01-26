@@ -1,6 +1,8 @@
 <?php
 
 return [
+    "skip_to_nav" => "Skip to navigation",
+    "skip_to_content" => "Skip to content",
 	"error_404_surtitle" => "Page Not Found",
 	"error_404_title" => "404. That’s an error.",
 	"error_404_text" => "The requested URL {url} was not found on this server.",
