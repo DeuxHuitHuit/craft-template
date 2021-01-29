@@ -1,10 +1,12 @@
 'use strict';
 
-const except = (exception, object) => {
+const screenExceptions = ['touch', 'mouse'];
+
+const except = (exceptions, object) => {
 	let output = {};
 
 	Object.keys(object).forEach((key) => {
-		if (key !== exception) {
+		if (!exceptions.includes(key)) {
 			output[key] = object[key];
 		}
 	});
@@ -125,31 +127,31 @@ module.exports = {
 			none: 'none',
 			auto: 'auto',
 			...theme('spacing'),
-			...except('touch', theme('screens'))
+			...except(screenExceptions, theme('screens'))
 		}),
 		minWidth: (theme) => ({
 			none: 'none',
 			auto: 'auto',
 			...theme('spacing'),
-			...except('touch', theme('screens'))
+			...except(screenExceptions, theme('screens'))
 		}),
 		maxHeight: (theme) => ({
 			none: 'none',
 			auto: 'auto',
 			...theme('spacing'),
-			...except('touch', theme('screens'))
+			...except(screenExceptions, theme('screens'))
 		}),
 		minHeight: (theme) => ({
 			none: 'none',
 			auto: 'auto',
 			...theme('spacing'),
-			...except('touch', theme('screens'))
+			...except(screenExceptions, theme('screens'))
 		}),
 		inset: (theme) => ({
 			none: 'none',
 			auto: 'auto',
 			...theme('spacing'),
-			...except('touch', theme('screens'))
+			...except(screenExceptions, theme('screens'))
 		}),
 		fontFamily: {
 			base: ['Helvetica Neue', 'Arial', 'sans-serif'],
@@ -239,7 +241,8 @@ module.exports = {
 				full: '100%'
 			},
 			screens: {
-				touch: { raw: '(hover: none)' }
+				touch: { raw: '(hover: none)' },
+				mouse: { raw: '(any-hover: hover)' }
 			}
 		}
 	},
