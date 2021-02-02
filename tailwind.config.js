@@ -1,6 +1,6 @@
 'use strict';
 
-const screenExceptions = ['touch', 'mouse'];
+const screenExceptions = ['touch', 'pointer'];
 
 const except = (exceptions, object) => {
 	let output = {};
@@ -242,7 +242,7 @@ module.exports = {
 			},
 			screens: {
 				touch: { raw: '(hover: none)' },
-				mouse: { raw: '(any-hover: hover)' }
+				pointer: { raw: '(any-hover: hover)' }
 			}
 		}
 	},
