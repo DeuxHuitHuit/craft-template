@@ -1,7 +1,7 @@
 {% extends "_masters/html.twig" %}
 
-{% set pageTitle = 'entry.seo.one().shareTitle ?? shareTitleFallback ?? entry.displayTitle ?? entry.title ?? configuration.seo.one().shareTitle|default' %}
-{% set pageDescription = 'entry.seo.one().shareDescription ?? shareDescriptionFallback ?? configuration.seo.one().shareDescription|default '%}
+{% set pageTitle = entry.seo.one().shareTitle ?? entry.displayTitle ?? entry.title ?? configuration.seo.one().shareTitle ?? shareTitleFallback|default %}
+{% set pageDescription = entry.seo.one().shareDescription ?? configuration.seo.one().shareDescription ?? shareDescriptionFallback|default %}
 {% set pageImage = entry.seo.one().shareImage.one() ?? shareImageFallback ?? configuration.seo.one().shareImage.one()|default %}
 {% set pageUrl = craft.app.request.absoluteUrl|default %}
 
