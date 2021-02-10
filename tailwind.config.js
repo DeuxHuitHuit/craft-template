@@ -33,7 +33,7 @@ module.exports = {
 			transparent: 'transparent',
 			current: 'currentColor',
 			black: {
-				default: '#080913',
+				DEFAULT: '#080913',
 				pure: '#000000',
 				80: 'rgba(8, 9, 19, 0.80)',
 				50: 'rgba(8, 9, 19, 0.50)',
@@ -43,7 +43,7 @@ module.exports = {
 				'05': 'rgba(8, 9, 19, 0.05)'
 			},
 			white: {
-				default: '#fff',
+				DEFAULT: '#fff',
 				80: 'rgba(255,255,255,0.8)',
 				50: 'rgba(255,255,255,0.5)',
 				20: 'rgba(255,255,255,0.2)',
@@ -52,26 +52,26 @@ module.exports = {
 		},
 		backgroundColor: (theme) => ({
 			main: {
-				default: theme('colors.white.default'),
-				reverse: theme('colors.black.default')
+				DEFAULT: theme('colors.white.DEFAULT'),
+				reverse: theme('colors.black.DEFAULT')
 			}
 		}),
 		textColor: (theme) => ({
 			main: {
-				default: theme('colors.black.default'),
-				reverse: theme('colors.white.default')
+				DEFAULT: theme('colors.black.DEFAULT'),
+				reverse: theme('colors.white.DEFAULT')
 			}
 		}),
 		borderColor: (theme) => ({
 			current: 'currentColor',
 			transparent: 'transparent',
 			main: {
-				default: theme('colors.black.default'),
-				reverse: theme('colors.white.default')
+				DEFAULT: theme('colors.black.DEFAULT'),
+				reverse: theme('colors.white.DEFAULT')
 			}
 		}),
 		placeholderColor: (theme) => ({
-			default: theme('textColor')
+			DEFAULT: theme('textColor')
 		}),
 		spacing: {
 			0: '0',
@@ -247,9 +247,11 @@ module.exports = {
 		}
 	},
 	variants: {
-		padding: ['responsive', 'first'],
-		margin: ['responsive', 'first'],
-		accessibility: ['responsive', 'focus', 'group-focus']
+		extend: {
+			padding: ['responsive', 'first'],
+			margin: ['responsive', 'first'],
+			accessibility: ['responsive', 'focus', 'group-focus']
+		}
 	},
 	plugins: []
 };

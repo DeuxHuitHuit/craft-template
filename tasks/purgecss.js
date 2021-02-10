@@ -7,17 +7,11 @@ module.exports = (grunt) => {
 						'templates/**/*.twig',
 						'web/assets/js/**/*.js'
 					],
-					whitelist: [
-
-					],
-					whitelistPatterns: [
-						/^is-/,
-						/^has-/
-					],
-					whitelistPatternsChildren: [
-						/^is-/,
-						/^has-/
-					],
+					safelist: {
+						standard: [/^is-/, /^has-/],
+						deep: [/^is-/, /^has-/],
+						greedy: [/^is-/, /^has-/]
+					},
 					extractors: [
 						{
 							extractor: (content) => {
