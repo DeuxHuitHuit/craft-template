@@ -1,0 +1,37 @@
+#admin-menu {
+	position: fixed;
+	bottom: 40rem;
+	left: 40rem;
+	z-index: 1000000;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	opacity: 0.2;
+	transition: ease-out 100ms opacity;
+
+	.admin-menu-toggle {
+		width: 40rem;
+	}
+
+	.admin-menu-tools {
+		opacity: 0;
+		margin-left: 20rem;
+
+		select {
+			background: none;
+		}
+
+		a {
+			display: inline-block;
+			margin: 0 20rem;
+		}
+	}
+
+	&:hover {
+		opacity: 1;
+
+		.admin-menu-tools {
+			opacity: 1;
+		}
+	}
+}
