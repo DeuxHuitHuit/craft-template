@@ -6,6 +6,8 @@
 
 	'use strict';
 
+	// test
+
 	const updatePage = (event) => {
 		let preventGoto = false;
 
