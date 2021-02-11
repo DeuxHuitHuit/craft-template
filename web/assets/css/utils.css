@@ -1,0 +1,5 @@
+/* Utils */
+@import 'tailwind/utilities.css';
+
+/* Admin */
+@import 'lib/admin.css';
