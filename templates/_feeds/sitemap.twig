@@ -1,6 +1,5 @@
 {% header "Content-Type: application/xml" %}
 {% set entries = craft.entries().status('live').all() %}
-{% set products = craft.products().all() %}
 <?xml version="1.0" encoding="UTF-8"?>
 {% spaceless %}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
@@ -9,15 +8,6 @@
 		{% if entry.url %}
 			<url>
 				<loc>{{ entry.url }}</loc>
-				<priority>0.5</priority>
-			</url>
-		{% endif %}
-	{% endfor %}
-
-	{% for product in products %}
-		{% if product.url %}
-			<url>
-				<loc>{{ product.url }}</loc>
 				<priority>0.5</priority>
 			</url>
 		{% endif %}
