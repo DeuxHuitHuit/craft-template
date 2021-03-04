@@ -60,7 +60,7 @@ class BuildVariable
     {
         return $this->loadJson('/package.json');
     }
-    
+
     public function fonts()
     {
         $fontsPath = CRAFT_BASE_PATH.'/web/assets/fonts/';
@@ -72,7 +72,7 @@ class BuildVariable
 
         $files = array_diff(scandir($fontsPath), array('.', '..'));
 
-        foreach ($files as $file => $value) {
+        foreach ($files as $file) {
             $font = explode('.', $file)[0];
 
             if (!in_array($font, $fonts)) {
