@@ -1,246 +1,51 @@
 /**
  * @author Deux Huit Huit
  *
- * Tracking functions: Google Analytics/Tag Manager wrapper
+ * Tracking functions: Google Tag Manager wrapper
  */
-(function ($) {
+(() => {
 	'use strict';
-	
-	var html = $('html');
-	var lang = html.attr('lang');
-	
-	var log = function () {
-		var args = [];
-		$.each(arguments, function (i, a) {
-			if ($.isPlainObject(a)) {
-				a = JSON.stringify(a, null, 2);
-			} else {
-				a = '"' + a + '"';
-			}
-			args.push(a);
-		});
-		App.log({args: ['%cga(' + args.join(',') + ');', 'color:cornflowerblue']});
-	};
-	
-	var getGa = function () {
-		/* jshint ignore:start */
-		if (!!window.dataLayer && !!window.dataLayer.push) {
-			return function ga (gaAction, gaCat, cat, action, label, value, options, category) {
-				if (gaCat === 'pageview') {
-					dataLayer.push($.extend({}, cat, {
-						event: gaCat,
-						page: {
-							requestURI: cat.page || cat.location,
-							page: cat.page,
-							location: cat.location,
-							language: lang,
-							referer: document.referrer,
-							title: document.title
-						}
-					}));
-				} else if (gaCat === 'event') {
-					var args = {
-						event: gaCat,
-						eventCategory: category || cat,
-						eventAction: action,
-						eventLabel: label,
-						eventValue: value,
-						eventOptions: options
-					};
-					if ($.isPlainObject(cat)) {
-						args = $.extend(true, {}, args, cat);
-						args.eventCategory = args.eventCategory || args.event;
-						args.event = args.eventName || gaCat;
-					}
-					dataLayer.push(args);
-				}
-			};
-		}
-		/* jshint ignore:end */
-		return window.ga || log;
-	};
-	
-	// ga facilitators
-	var sendPageView = function (opts) {
-		var ga = getGa();
-		var defaults = {
-			page: window.location.pathname + window.location.search,
-			location: window.location.href,
-			hostname: window.location.hostname
-		};
-		var args = !opts ? defaults : $.extend(defaults, opts);
-		App.mediator.notify('tracking.formatPage', args, function (key, res) {
-			args.page = res;
-		});
-		App.mediator.notify('tracking.formatLocation', args, function (key, res) {
-			args.location = res;
-		});
-		if (!html.filter('[data-no-ga]').length) {
-			ga('send', 'pageview', args);
-		} else {
-			log('sendPageView bypassed by attribute');
+
+	const html = document.querySelector('html');
+	const lang = html.getAttribute('lang');
+	const defaults = {
+		event: 'event',
+		page: {
+			requestURI: window.location.toString(),
+			language: lang,
+			referer: document.referrer,
+			title: document.title
 		}
 	};
-	
-	/* jshint maxparams:6 */
-	var sendEvent = function (cat, action, label, value, options, category) {
-		var ga = getGa();
-		cat = cat || '';
-		options = cat.options || options || {nonInteraction: 1};
-		if (!html.filter('[data-no-ga]').length) {
-			ga('send', 'event', cat, action, label, value, options, category);
-		} else {
-			log('sendEvent bypassed by attribute');
-		}
-	};
-	/* jshint maxparams:5 */
-	
-	/**
-	 * Exports fx
-	 */
-	App.fx.exports('tracking.sendPageView', function (key, options) {
-		return sendPageView(options);
-	});
-	App.fx.exports('tracking.sendEvent', function (key, options) {
-		options = options || false;
-		return sendEvent(
-			options.cat,
-			options.action,
-			options.label,
-			options.value,
-			options.options,
-			options.category
-		);
-	});
 
-	var getTextValue = function (t, key) {
-		return t.attr(key) || undefined;
+	const log = (options) => {
+		options = JSON.stringify(options, null, 2);
+		App.log({
+			me: 'Tracking',
+			args: ['%cpush(' + options + ');', 'color:cornflowerblue']
+		});
 	};
 
-	/**
-	 * jQuery plugin: reads the values from the dom
-	 * Also make sure we do not trigger more than one tracking event for
-	 * a single DOM event
-	 */
-	$.fn.sendClickEvent = function (options) {
-		options = options || {};
-		var t = $(this).eq(0);
-		var send = true;
-
-		var setMinimalOptions = function () {
-			if (!options.action) {
-				options.action = 'click';
-			}
-
-			if (!options.label) {
-				options.label = $.trim(t.text());
-			}
-
-			if (!!options.event) {
-				if (!options.event.gaHandled) {
-					options.event.gaHandled = true;
-				} else {
-					send = false;
-				}
-			}
-		};
-
-		setMinimalOptions();
-		if (!send) {
+	const push = (options) => {
+		if (!window.dataLayer || !window.dataLayer.push) {
 			return;
 		}
-		
-		var o = $.extend({}, options, {
-			cat: getTextValue(t, 'data-ga-cat'),
-			category: getTextValue(t, 'data-ga-category'),
-			action: getTextValue(t, 'data-ga-action'),
-			label: getTextValue(t, 'data-ga-label'),
-			value: parseInt(t.attr('data-ga-value'), 10) || undefined
+		window.dataLayer.push({
+			...defaults,
+			...options
 		});
-
-		var detectError = function () {
-			if (!o.cat) {
-				App.log({fx: 'err', args: 'No ga-cat found. Cannot continue.'});
-				send = false;
-			}
-			
-			if (!o.label) {
-				App.log({fx: 'warn', args: 'No ga-label found. Reverting to text'});
-			}
-		};
-
-		detectError();
-		
-		if (!!send) {
-			sendEvent(o.cat, o.action, o.label, o.value, undefined, o.category);
-		}
 	};
-	
+
 	/**
-	 * Auto-hook
+	 * Export fx
 	 */
-	$(function () {
-		var loc = window.location;
-		var origin = loc.origin || (loc.protocol + '//' + loc.hostname);
-		var internalLinksExclusion = ':not([href^="' + origin + '"])';
-		var externalLinks = 'a[href^="http://"]' + internalLinksExclusion +
-			', a[href^="https://"]' + internalLinksExclusion;
-		var mailtoLinks = 'a[href^="mailto:"]';
-		var telLinks = 'a[href^="tel:"]';
-		var downloadExtensions = ['pdf', 'jpg', 'jpeg', 'png', 'doc', 'docx', 'xsl', 'xslx'];
-		var downloadLinks = _.map(downloadExtensions, function (ext) {
-			return 'a[href$=".' + ext + '"], ';
-		}).join('') + 'a[href$="?dl"], a[download]';
-		var getRefLinkLabel = function (t) {
-			var url = $(t).attr('href');
-			if (!url) {
-				return undefined;
-			}
-			if (/^(mailto|tel):/.test(url)) {
-				url = url.replace(/^mailto:/, '');
-				url = url.replace(/^tel:/, '');
-				url = url.split('?')[0];
-			}
-			url = url.replace(origin, '');
-			return url;
-		};
-		$('#site')
-		.on(App.device.events.click, externalLinks, function (e) {
-			$(this).sendClickEvent({
-				cat: 'link-external',
-				label: getRefLinkLabel(this),
-				event: e
-			});
-		})
-		.on(App.device.events.click, downloadLinks, function (e) {
-			$(this).sendClickEvent({
-				cat: 'link-download',
-				label: getRefLinkLabel(this),
-				event: e
-			});
-		})
-		.on(App.device.events.click, mailtoLinks, function (e) {
-			$(this).sendClickEvent({
-				cat: 'link-mailto',
-				label: getRefLinkLabel(this),
-				event: e
-			});
-		})
-		.on(App.device.events.click, telLinks, function (e) {
-			$(this).sendClickEvent({
-				cat: 'link-tel',
-				label: getRefLinkLabel(this),
-				event: e
-			});
-		})
-		.on(App.device.events.click, '[data-ga-cat]', function (e) {
-			$(this).sendClickEvent({
-				event: e
-			});
-		});
-		if ($('body').hasClass('page-404')) {
-			sendEvent('erreur 404', 'erreur 404', document.referrer);
+	App.fx.exports('tracking.push', (key, options) => {
+		// Distinguish between simple array and loaded gtm container
+		if (!window.dataLayer || !window.dataLayer.hasOwnProperty('push')) {
+			log(options);
 		}
+		push(options);
 	});
-	
-})(jQuery);
+
+})();
+
