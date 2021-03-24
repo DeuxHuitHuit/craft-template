@@ -1,0 +1,36 @@
+dateModified: 1616614112
+email:
+  fromEmail: no-reply@deuxhuithuit.dev
+  fromName: 'Craft Template'
+  replyToEmail: null
+  template: ''
+  transportSettings:
+    encryptionMethod: ''
+    host: localhost
+    password: ''
+    port: '25'
+    timeout: '10'
+    useAuthentication: ''
+    username: ''
+  transportType: craft\mail\transportadapters\Smtp
+plugins:
+  cp-field-inspect:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  redactor:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.3.0
+system:
+  edition: pro
+  live: true
+  name: 'Craft Template'
+  schemaVersion: 3.6.6
+  timeZone: America/Los_Angeles
+users:
+  allowPublicRegistration: false
+  defaultGroup: null
+  photoSubpath: null
+  photoVolumeUid: null
+  requireEmailVerification: true

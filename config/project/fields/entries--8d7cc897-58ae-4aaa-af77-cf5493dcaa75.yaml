@@ -1,0 +1,20 @@
+contentColumnType: string
+fieldGroup: 3ae933e0-0271-44cd-9d9c-a84684ecbd2e # Common
+handle: entries
+instructions: ''
+name: Entries
+searchable: false
+settings:
+  allowSelfRelations: false
+  limit: ''
+  localizeRelations: false
+  selectionLabel: ''
+  showSiteMenu: true
+  source: null
+  sources: '*'
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

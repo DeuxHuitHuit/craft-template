@@ -1,0 +1,18 @@
+contentColumnType: text
+fieldGroup: 3ae933e0-0271-44cd-9d9c-a84684ecbd2e # Common
+handle: href
+instructions: ''
+name: Href
+searchable: false
+settings:
+  byteLimit: null
+  charLimit: null
+  code: ''
+  columnType: null
+  initialRows: '4'
+  multiline: ''
+  placeholder: null
+  uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

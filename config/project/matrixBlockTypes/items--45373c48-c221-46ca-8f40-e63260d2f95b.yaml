@@ -1,0 +1,68 @@
+field: c36c0b08-9de6-42a5-9f12-d2a4db9a1d3a # Same As
+fieldLayouts:
+  3ded565d-50ee-47af-a60f-e52500e73e97:
+    tabs:
+      -
+        elements:
+          -
+            fieldUid: 07dc7c3f-d3c5-4529-921a-0ba5f93ca671 # Same As Name
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+          -
+            fieldUid: e858b3d3-1506-4514-b8ea-f5c516f583c2 # Same As URL
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+        name: Content
+        sortOrder: 1
+fields:
+  07dc7c3f-d3c5-4529-921a-0ba5f93ca671: # Same As Name
+    contentColumnType: text
+    fieldGroup: null
+    handle: sameAsName
+    instructions: ''
+    name: 'Same As Name'
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: ''
+      columnType: null
+      initialRows: '4'
+      multiline: ''
+      placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+  e858b3d3-1506-4514-b8ea-f5c516f583c2: # Same As URL
+    contentColumnType: text
+    fieldGroup: null
+    handle: sameAsUrl
+    instructions: ''
+    name: 'Same As URL'
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: ''
+      columnType: null
+      initialRows: '4'
+      multiline: ''
+      placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+handle: items
+name: Items
+sortOrder: 1

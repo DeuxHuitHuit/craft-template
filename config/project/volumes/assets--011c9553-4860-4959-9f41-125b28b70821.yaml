@@ -1,0 +1,40 @@
+fieldLayouts:
+  eba2ec0c-9c4b-4916-ad4b-0fbe08010c8c:
+    tabs:
+      -
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            id: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\AssetTitleField
+            warning: null
+            width: 100
+        name: Content
+        sortOrder: 1
+handle: assets
+hasUrls: true
+name: Assets
+settings:
+  path: $ASSETS_FILE_SYSTEM_PATH
+sortOrder: 1
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
+type: craft\volumes\Local
+url: $UPLOADS_URL
