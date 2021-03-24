@@ -4,3 +4,8 @@
 !/craft/storage/rebrand
 .vscode/sftp.json
 node_modules
+.DS_Store
+web/assets/js/libs/
+web/assets/js/tofill*
+web/assets/css/tofill*
+web/assets/css/pre-build/

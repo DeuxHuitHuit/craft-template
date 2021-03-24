@@ -29,7 +29,7 @@
  *          {item,state,flag}
  *
  */
-(function ($, undefined) {
+ (function ($, undefined) {
 	
 	'use strict';
 	var win = $(window);
@@ -271,18 +271,6 @@
 	var fxChangeState = function (key, data) {
 		onUpdateState(key, data);
 	};
-
-	var actions = function () {
-		return {
-			changeState: {
-				update: onUpdateState
-			}
-		};
-	};
-	
-	App.modules.exports('change-state', {
-		actions: actions
-	});
 
 	App.fx.exports('changeState.update', fxChangeState);
 	

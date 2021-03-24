@@ -41,5 +41,13 @@ module.exports = (grunt) => {
 
 	grunt.registerTask('push', ['ftp_push:css', 'ftp_push:js', 'ftp_push:build']);
 
+	grunt.registerTask('setup', [
+		'clean:css-utils',
+		'postcss:utils',
+		'ftp_push:dev',
+		'build',
+		'push'
+	]);
+
 	grunt.registerTask('default', ['watch']);
 };
