@@ -22,19 +22,19 @@ use craft\helpers\App;
 return [
     'id' => App::env('APP_ID') ?: 'CraftCMS',
     'modules' => [
-        'build' => [
-            'class' => \modules\build\Build::class,
-        ],
-        'languageRedirect' => [
-            'class' => \modules\languageRedirect\LanguageRedirect::class,
-        ],
-        'twigExtension' => [
-            'class' => \modules\twigextension\TwigExtension::class,
-        ]
+        'build' => \modules\build\Build::class,
+        'killswitch' => \modules\killswitch\Killswitch::class,
+        // 'languageRedirect' => [
+        //     'class' => \modules\languageRedirect\LanguageRedirect::class,
+        // ],
+        // 'twigExtension' => [
+        //     'class' => \modules\twigextension\TwigExtension::class,
+        // ]
     ],
     'bootstrap' => [
         'build',
-        'languageRedirect',
-        'twigExtension'
+        'killswitch',
+        // 'languageRedirect',
+        // 'twigExtension'
     ],
 ];

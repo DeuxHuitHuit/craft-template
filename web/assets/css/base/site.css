@@ -37,7 +37,6 @@ html {
 
 body {
 	@apply text-current;
-	@apply font-sans;
 }
 
 /* Tablet */

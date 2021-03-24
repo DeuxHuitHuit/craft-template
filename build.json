@@ -1,3 +1,8 @@
 {
-    "lastBuild": 0
+    "lastBuild": 2,
+    "previous": {
+        "lastBuild": 1,
+        "svn": {}
+    },
+    "date": "2021-03-24T15:00:37.965Z"
 }
