@@ -1,0 +1,21 @@
+contentColumnType: string
+fieldGroup: 3ae933e0-0271-44cd-9d9c-a84684ecbd2e # Common
+handle: button
+instructions: ''
+name: Button
+searchable: false
+settings:
+  allowSelfRelations: false
+  limit: '1'
+  localizeRelations: false
+  selectionLabel: ''
+  showSiteMenu: false
+  source: null
+  sources:
+    - 'section:9d6e1dc5-f254-4630-ae0b-78df79c2b0d9' # Buttons
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

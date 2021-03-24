@@ -1,0 +1,109 @@
+field: 9ee0fccd-4076-47c7-9e3c-6681d566922f # Modules
+fieldLayouts:
+  59a6332a-7171-4eec-8373-46a0960a708d:
+    tabs:
+      -
+        elements:
+          -
+            fieldUid: f96f6570-b11d-4ed4-bd05-4cb3bd8988ea # Display Title
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+          -
+            fieldUid: 523d6c7f-361c-4d7b-a252-35cd9cb8c8d6 # Video ID
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+          -
+            fieldUid: 04fdbfea-87fc-49c3-aed8-6ac68a5572ad # Thumbnail
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+        name: Content
+        sortOrder: 1
+fields:
+  04fdbfea-87fc-49c3-aed8-6ac68a5572ad: # Thumbnail
+    contentColumnType: string
+    fieldGroup: null
+    handle: thumbnail
+    instructions: ''
+    name: Thumbnail
+    searchable: false
+    settings:
+      allowSelfRelations: false
+      allowUploads: true
+      allowedKinds: null
+      defaultUploadLocationSource: 'volume:011c9553-4860-4959-9f41-125b28b70821' # Assets
+      defaultUploadLocationSubpath: ''
+      limit: '1'
+      localizeRelations: false
+      previewMode: full
+      restrictFiles: ''
+      selectionLabel: ''
+      showSiteMenu: true
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      singleUploadLocationSource: 'volume:011c9553-4860-4959-9f41-125b28b70821' # Assets
+      singleUploadLocationSubpath: ''
+      source: null
+      sources: '*'
+      targetSiteId: null
+      useSingleFolder: false
+      validateRelatedElements: false
+      viewMode: large
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Assets
+  523d6c7f-361c-4d7b-a252-35cd9cb8c8d6: # Video ID
+    contentColumnType: text
+    fieldGroup: null
+    handle: videoId
+    instructions: ''
+    name: 'Video ID'
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: ''
+      columnType: null
+      initialRows: '4'
+      multiline: ''
+      placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+  f96f6570-b11d-4ed4-bd05-4cb3bd8988ea: # Display Title
+    contentColumnType: text
+    fieldGroup: null
+    handle: displayTitle
+    instructions: ''
+    name: 'Display Title'
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: ''
+      columnType: null
+      initialRows: '4'
+      multiline: ''
+      placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+handle: vimeo
+name: Vimeo
+sortOrder: 4

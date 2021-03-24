@@ -1,0 +1,18 @@
+contentColumnType: text
+fieldGroup: f2bd6399-99bc-4c79-bb5e-3f80ccf3efc0 # SEO
+handle: shareDescription
+instructions: ''
+name: 'Share Description'
+searchable: false
+settings:
+  byteLimit: null
+  charLimit: null
+  code: ''
+  columnType: null
+  initialRows: '4'
+  multiline: ''
+  placeholder: null
+  uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

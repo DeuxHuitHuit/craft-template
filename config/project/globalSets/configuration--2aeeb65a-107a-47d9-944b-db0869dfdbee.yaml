@@ -1,0 +1,54 @@
+fieldLayouts:
+  c0c21690-2088-43f0-bdcf-caea1728e196:
+    tabs:
+      -
+        elements:
+          -
+            fieldUid: 042ef8a5-88f2-45dd-b956-063c1ee1004c # Share Title
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+          -
+            fieldUid: 40b1a8c0-2c22-4a6c-835d-2b4ce677b9a5 # Share Image
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+          -
+            fieldUid: 7a5c8f1c-fa79-45b2-b59e-44a235925869 # Share Description
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+          -
+            fieldUid: c36c0b08-9de6-42a5-9f12-d2a4db9a1d3a # Same As
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+          -
+            fieldUid: 2d35bc2c-26b3-4ca7-9bab-bb2cdfb58b64 # Image
+            instructions: ''
+            label: Logo
+            required: ''
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+        name: Site
+        sortOrder: 1
+handle: configuration
+name: Configuration

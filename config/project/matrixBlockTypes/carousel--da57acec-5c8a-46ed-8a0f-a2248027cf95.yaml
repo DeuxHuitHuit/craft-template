@@ -1,0 +1,70 @@
+field: 9ee0fccd-4076-47c7-9e3c-6681d566922f # Modules
+fieldLayouts:
+  e9d4b93b-d200-4402-a2e3-925d70a431e2:
+    tabs:
+      -
+        elements:
+          -
+            fieldUid: 628598ae-bef3-4c5a-8ba2-630062246b71 # Display Title
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+          -
+            fieldUid: 3d0f5a82-1fec-4f4c-ad46-362ca4ae31c7 # Items
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+        name: Content
+        sortOrder: 1
+fields:
+  3d0f5a82-1fec-4f4c-ad46-362ca4ae31c7: # Items
+    contentColumnType: string
+    fieldGroup: null
+    handle: items
+    instructions: ''
+    name: Items
+    searchable: false
+    settings:
+      allowSelfRelations: false
+      limit: ''
+      localizeRelations: false
+      selectionLabel: ''
+      showSiteMenu: true
+      source: null
+      sources: '*'
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: null
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Entries
+  628598ae-bef3-4c5a-8ba2-630062246b71: # Display Title
+    contentColumnType: text
+    fieldGroup: null
+    handle: displayTitle
+    instructions: ''
+    name: 'Display Title'
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: ''
+      columnType: null
+      initialRows: '4'
+      multiline: ''
+      placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+handle: carousel
+name: Carousel
+sortOrder: 5

@@ -1,0 +1,23 @@
+enableVersioning: true
+handle: buttons
+name: Buttons
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary entry page'
+      -
+        - urlFormat
+        - ''
+      -
+        - refresh
+        - ''
+propagationMethod: all
+siteSettings:
+  f484353b-72a8-4006-bcea-491be8d6ca43: # Craft Template
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+type: channel
