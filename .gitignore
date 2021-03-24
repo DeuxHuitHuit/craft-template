@@ -4,3 +4,4 @@
 !/craft/storage/rebrand
 .vscode/sftp.json
 node_modules
+.DS_Store
