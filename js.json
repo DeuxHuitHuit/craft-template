@@ -10,6 +10,8 @@
 		"fx/compute-options.js",
 		"fx/change-state.js",
 
+		"modules/metas.js",
+		"modules/language-links.js",
 		"modules/ajax.js",
 		"modules/url-changer.js",
 		"modules/link-selector.js",
