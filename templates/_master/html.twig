@@ -1,0 +1,42 @@
+{% set locale = craft.app.locale() %}
+{% set sites = craft.app.sites.getAllSites() %}
+{% set locales = sites|map(s => s.language)|join(',') %}
+
+{% if craft.app.getuser and craft.app.getuser.getIdentity and craft.app.getuser.getIdentity.can('accessCp') %}
+	{% header "Cache-Control: private, no-cache" %}
+{% endif %}
+
+<!DOCTYPE html>
+<html lang="{{ locale.id }}" data-all-langs="{{ locales }}" data-version="{{ craft.build.package.version }}.{{ craft.build.build.lastBuild }}">
+	<head>
+		{% block metadata %}{% include "_partials/metadata.twig" %}{% endblock %}
+		{% block canonical %}<link rel="canonical" href="{{ entry.url }}" />{% endblock %}
+		{% include "_master/favicon.twig" %}
+		{% include "_master/alternates.twig" %}
+		{% include "_master/fonts.twig" %}
+		{% block css %}
+			{% include "_master/css.twig" %}
+		{% endblock %}
+		{% include "_master/livereload.twig" %}
+		{% include "_lib/gtm-head" %}
+		{% block head %}{% endblock %}
+	</head>
+	<body class="min-w-min">
+		{% include "_lib/gtm-body" %}
+		{% include "_master/sr-nav.twig" %}
+		<div id="site">
+			{% block header %}{% include "_partials/header" %}{% endblock %}
+			<div id="pages">
+				<main class="page" data-page-url="{{ entry.url }}">
+					{% include ["_layout/" ~ entry.type|kebab, "_layout"] %}
+				</main>
+			</div>
+			{% block footer %}{% include "_partials/footer" %}{% endblock %}
+		</div>
+		{% block js %}
+			{% include "_master/js.twig" %}
+		{% endblock %}
+		{% include "_lib/admin.twig" %}
+	</body>
+</html>
+<!-- cache-stamp: {{ 'now'|date('Y-m-d\\TH:i')}} -->

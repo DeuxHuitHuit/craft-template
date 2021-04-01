@@ -1,7 +1,0 @@
-{% set asset = asset|default %}
-{% set url = asset.url() %}
-{% set isAutoplay = isAutoplay|default('true') %}
-{% set isLoop = isLoop|default('true') %}
-{% set extClass = extClass|default %}
-
-<div class="{{ extClass }} || js-auto-animation" data-animation-path="{{ url }}" data-animation-autoplay="{{ isAutoplay }}" data-animation-loop="{{ isLoop }}"></div>

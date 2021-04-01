@@ -1,0 +1,48 @@
+{#
+	js.json implementation for craft/twig
+
+	* add <script src="?" /> tags for every scripts in js.json
+	* serves a build version of the code if not in debug mode
+	* initializes the framework.js
+
+	@author Deux Huit Huit | fhamon
+	@since 0.1.0
+#}
+{% if craft.build.debug %}
+	{% for sources in craft.build.js.before %}
+		<script src="{{ sources }}"></script>
+	{% endfor %}
+
+	{% for sources in craft.build.js.sources %}
+		<script src="/assets/js/{{ sources }}"></script>
+	{% endfor %}
+
+	{% for sources in craft.build.js.dev %}
+		<script src="/assets/js/{{ sources }}"></script>
+	{% endfor %}
+{% else %}
+	{% set jsFile %}/web/assets/js/{{ craft.build.package.name }}.min.js{% endset %}
+	{% set jsEs5File %}/web/assets/js/{{ craft.build.package.name }}.es5.min.js{% endset %}
+	{% set cacheBusterJsFile %}/assets/js/{{ craft.build.package.name }}.min.{{ craft.build.package.version }}.{{ craft.build.build.lastBuild }}.js{% endset %}
+	{% set cacheBusterJsEs5File %}/assets/js/{{ craft.build.package.name }}.es5.min.{{ craft.build.package.version }}.{{ craft.build.build.lastBuild }}.js{% endset %}
+
+	<script src="{{ cacheBusterJsFile }}" integrity="{{ craft.build.integrity(jsFile) }}"></script>
+	<script nomodule src="{{ cacheBusterJsEs5File }}" integrity="{{ craft.build.integrity(jsEs5File) }}"></script>
+{% endif %}
+
+{% for sources in craft.build.js.after %}
+	<script src="{{ sources }}"></script>
+{% endfor %}
+
+{# 
+	Framework initialisation with default page
+ #}
+<script>
+(function () {
+	'use strict';
+{% if craft.build.debug %}
+	App.debug(true);
+{% endif %}
+	App.run('#pages');
+})();
+</script>

@@ -1,0 +1,82 @@
+{% set title %}
+{% if entry.shareTitle %}
+{{ entry.shareTitle }}	
+{% elseif entry.uri == '__home__' %}
+{{ configuration.shareTitle }}
+{% else %}
+{{ entry.title }}
+{% endif %}
+{% endset %}
+
+{% set description %}
+{% if entry.uri == '__home__' %}
+{{ configuration.shareDescription }}
+{% elseif entry.shareDescription %}
+{{ entry.shareDescription }}	
+{% endif %}
+{% endset %}
+
+{% set imageWidth = '' %}
+{% set imageHeight = '' %}
+{% set imageUrl %}
+{% if entry.uri == '__home__' and configuration.shareImage.one() %}
+{{ configuration.shareImage.one().url() }}
+{% elseif entry.shareDescription %}
+{{ entry.shareImage.url() }}	
+{% endif %}
+{% endset %}
+
+{% set url = url|default(entry.url) %}
+{% set twitterHandle = configuration.twitterHandle %}
+
+<title>{{ title }}</title>
+<meta name="description" content="{{ description }}">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover"/>
+<meta name="referrer" content="origin-when-cross-origin"/>
+
+{# OPENGRAPH #}
+{% if title %}
+<meta property="og:title" content="{{ title }}" />
+{% endif %}
+{% if description %}
+<meta property="og:description" content="{{ description }}" />
+{% endif %}
+{% if imageUrl %}
+<meta property="og:image" content="{{ imageUrl }}" />
+{% endif %}
+{% if imageWidth %}
+<meta property="og:image:width" content="{{ imageWidth }}" />
+{% endif %}
+{% if imageHeight %}
+<meta property="og:image:height" content="{{ imageHeight }}" />
+{% endif %}
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ url }}" />
+
+{# TWITTER #}
+<meta name="twitter:card" content="summary_large_image">
+{% if twitterHandle %}
+<meta name="twitter:site" content="{{ twitterHandle }}">
+{% endif %}
+{% if title %}
+<meta name="twitter:title" content="{{ title }}">	
+{% endif %}
+{% if description %}
+<meta name="twitter:description" content="{{ description }}">
+{% endif %}
+{% if imageUrl %}
+<meta name="twitter:image" content="{{ imageUrl }}">
+{% endif %}
+
+{% if entry.uri == '__home__' and configuration.shareImage.one() %}
+<script type="application/ld+json">
+	{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"logo": "{{ imageUrl }}" 
+		"url": "{{ url }}",
+	}
+</script>
+{% endif %}

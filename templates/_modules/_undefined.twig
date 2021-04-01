@@ -1,8 +1,0 @@
-{% extends "_modules/_base" %}
-
-{% set extCtnClass = 'bg-alert border-slimmest border-alert rounded-sharp text-alert p-thin' %}
-{% if devMode %}
-	{% block content %}
-		<h2>ERROR - The module <code>{{module.type}}</code> has no corresponding template.</h2>
-	{% endblock %}
-{% endif %}

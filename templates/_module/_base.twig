@@ -1,0 +1,5 @@
+{% set moduleName = moduleName ?? module.type|default|kebab %}
+
+<section class="{{ extClass|default }}" data-module="{{ moduleName }}" {{ attr(extAttr|default({})) }}>
+	{% block content %}{% endblock %}
+</section>
