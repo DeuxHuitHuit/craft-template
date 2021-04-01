@@ -1,10 +1,9 @@
 {
   "require": {
     "craftcms/cms": "^3.5.10",
-    "craftcms/redactor": "2.8.1",
-    "mmikkel/cp-field-inspect": "1.2.2",
+    "craftcms/redactor": "2.8.5",
+    "mmikkel/cp-field-inspect": "1.2.4",
     "nav33d/craft-activitylog": "1.0.1",
-    "verbb/super-table": "2.6.3",
     "vlucas/phpdotenv": "^3.4.0"
   },
   "require-dev": {
@@ -13,14 +12,17 @@
   "autoload": {
     "psr-4": {
       "modules\\build\\": "modules/build/src/",
-      "modules\\killswitch\\": "modules/killswitch/src/"
+      "modules\\killswitch\\": "modules/killswitch/src/",
+      "modules\\agencyauth\\": "modules/agency-auth/src/",
+      "modules\\twig\\": "modules/twig/src/",
+      "modules\\languageRedirect\\": "modules/languageRedirect/src/"
     }
   },
   "config": {
     "sort-packages": true,
     "optimize-autoloader": true,
     "platform": {
-      "php": "7.0"
+      "php": "7.3"
     }
   },
   "scripts": {
