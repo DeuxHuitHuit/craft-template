@@ -1,0 +1,11 @@
+{% set modules = modules ?? (entry.modules.all()|default) %}
+
+{% block contentBefore %}
+
+{% endblock %}
+
+{% block modules %}
+	{% for module in modules %}
+		{% include ['_module/' ~ (module.type|kebab), '_module'] with { module: module } only %}
+	{% endfor %}
+{% endblock %}

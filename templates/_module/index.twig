@@ -1,0 +1,9 @@
+{% extends '_module/_base' %}
+
+{% block content %}
+	{% if devMode %}
+		<h2>
+			Mising Template '{{ module.type }}'
+		</h2>
+	{% endif %}
+{% endblock %}

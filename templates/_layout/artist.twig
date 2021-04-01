@@ -1,0 +1,27 @@
+{% set title = entry.title %}
+{% set displayTitle = entry.displayTitle %}
+{% set services = entry.services.all() %}
+{% set images = entry.images.all() %}
+{% set sameAs = entry.sameAs.all() %}
+{% set shortBio = entry.shortBio %}
+{% set longBio = entry.longBio %}
+
+{% for item in services %}
+	{{ item }}
+{% endfor %}
+
+{% for image in images %}
+	{% include '_lib/image' with {image: image} %}
+{% endfor %}
+
+{% for item in sameAs %}
+	<a href="{{ item.sameAsUrl }}">{{ item.sameAsName }}</a>
+{% endfor %}
+
+<h2>{{ 'bioTitle'|t }}</h2>
+
+{{ shortBio }}
+
+{{ 'bioReadMore'|t }}
+
+{{ longBio }}
