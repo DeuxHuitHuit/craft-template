@@ -27,7 +27,7 @@
 		<div id="site">
 			{% block header %}{% include "_partials/header" %}{% endblock %}
 			<div id="pages">
-				<main class="page" data-page-url="{{ entry.url }}">
+				<main class="page" data-page-url="{{ craft.app.request.absoluteUrl }}">
 					{% include ["_layout/" ~ entry.type|kebab, "_layout"] %}
 				</main>
 			</div>
