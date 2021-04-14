@@ -443,7 +443,7 @@
 			App.callback(o.clearCallback, [resultsCtn, o]);
 		};
 		
-		var onInputKeyUp = function () {
+		var onInputKeyUp = function (e) {
 			var val = input.val();
 		
 			if (val.length >= o.minChar) {
@@ -452,7 +452,7 @@
 				clear();
 			}
 			
-			App.callback(options.inputKeyUpCallback);
+			App.callback(options.inputKeyUpCallback, [{event: e}]);
 		};
 		
 		var init = function (c) {
