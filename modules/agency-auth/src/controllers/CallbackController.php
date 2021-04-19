@@ -16,7 +16,6 @@ class CallbackController extends Controller
 
     public function actionIndex()
     {
-        return 'hello world';
         $config = Craft::$app->config->getConfigFromFile('agency-auth');
 
         $query = Craft::$app->request->getQueryParams();
