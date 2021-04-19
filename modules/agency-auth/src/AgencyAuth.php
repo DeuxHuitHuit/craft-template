@@ -71,8 +71,9 @@ class AgencyAuth extends Module
     public function onBeforeLogin($event)
     {
         $user = $event->identity;
+        $config = Craft::$app->config->getConfigFromFile('agency-auth');
 
-        if (!!str_ends_with($user->email, '@deuxhuithuit.co')) {
+        if (!!str_ends_with($user->email, '@deuxhuithuit.co') && (!empty($config['client_id']) && !empty($config['client_secret']))) {
             $request = Craft::$app->getRequest();
             $body = $request->getBodyParams();
             if (isset($body['password'])) {
