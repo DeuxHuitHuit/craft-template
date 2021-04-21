@@ -24,17 +24,15 @@ return [
     'modules' => [
         'build' => \modules\build\Build::class,
         'killswitch' => \modules\killswitch\Killswitch::class,
-        // 'languageRedirect' => [
-        //     'class' => \modules\languageRedirect\LanguageRedirect::class,
-        // ],
-        // 'twigExtension' => [
-        //     'class' => \modules\twigextension\TwigExtension::class,
-        // ]
+        'agency-auth' => \modules\agencyauth\AgencyAuth::class,
+        'language-redirect' => \modules\languageRedirect\LanguageRedirect::class,
+        'twig' => \modules\twig\Twig::class,
     ],
     'bootstrap' => [
         'build',
         'killswitch',
-        // 'languageRedirect',
-        // 'twigExtension'
+        'agency-auth',
+        'twig',
+        'language-redirect',
     ],
 ];
