@@ -48,7 +48,7 @@ class Video extends Filter
         $computedTrackAttributes = [];
 
         foreach ($options as $key => $value) {
-            if ($value !== 0 && $value !== 'false' && $value !== false) {
+            if (!empty($value)) {
                 $computedAttributes[] = $key . '="' . $value . '"';
             }
         }
