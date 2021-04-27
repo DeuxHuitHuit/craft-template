@@ -38,6 +38,8 @@ return [
         'upscaleImages' => false,
 
         'transformGifs' => false,
+        
+        'sendPoweredByHeader' => false,
     ],
 
     // Dev environment settings
