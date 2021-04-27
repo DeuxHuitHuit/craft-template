@@ -69,7 +69,7 @@ class LanguageRedirect extends Module
                 }
             }
 
-            Craft::$app->response->redirect($url . $path . $qs);
+            Craft::$app->response->redirect($url . $path . $qs)->send();
         }
 
         Craft::info('LanguageRedirect module loaded', __METHOD__);
