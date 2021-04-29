@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="{{ locale.id }}" data-all-langs="{{ locales }}" data-version="{{ craft.build.package.version }}.{{ craft.build.build.lastBuild }}">
 	<head>
-		{% block metadata %}{% include "_partials/metadata.twig" %}{% endblock %}
+		{% block metadata %}{% include "_master/metadata.twig" %}{% endblock %}
 		{% block canonical %}<link rel="canonical" href="{{ entry.url }}" />{% endblock %}
 		{% include "_master/favicon.twig" %}
 		{% include "_master/alternates.twig" %}
@@ -28,7 +28,7 @@
 			{% block header %}{% include "_partials/header" %}{% endblock %}
 			<div id="pages">
 				<main class="page" data-page-url="{{ craft.app.request.absoluteUrl }}">
-					{% include ["_layout/" ~ entry.type|kebab, "_layout"] %}
+					{% block page %}{% endblock %}
 				</main>
 			</div>
 			{% block footer %}{% include "_partials/footer" %}{% endblock %}

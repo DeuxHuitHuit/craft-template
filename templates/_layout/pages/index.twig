@@ -1,0 +1,5 @@
+{% extends '_master/html' %}
+
+{% block page %}
+	{% include '_layout/pages/' ~ (entry.type|kebab) with { entry: entry } %}
+{% endblock %}
