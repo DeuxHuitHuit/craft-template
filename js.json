@@ -1,5 +1,6 @@
 {
 	"before": [
+		"https://cdn.jsdelivr.net/npm/focus-visible@5.2.0/dist/focus-visible.min.js",
 		"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js",
 		"https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.10.2/underscore-min.js"
 	],
