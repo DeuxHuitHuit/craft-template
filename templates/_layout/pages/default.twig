@@ -1,0 +1,5 @@
+{% set modules = entry.modules|default([]) %}
+
+{% for module in modules %}
+	{% include ['_module/' ~ (module.type|kebab), '_module'] with { module: module } only %}
+{% endfor %}
