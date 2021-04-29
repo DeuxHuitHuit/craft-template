@@ -4,7 +4,9 @@ module.exports = (grunt) => {
 	'use strict';
 
 	const cssJson = grunt.file.readJSON('css.json');
-	const cssFiles = cssJson.sources.map((source) => { return `web/assets/css/${source}` });
+	const cssFiles = cssJson.sources.map((source) => {
+		return `web/assets/css/${source}`;
+	});
 
 	grunt.config.merge({
 		postcss: {
@@ -13,39 +15,11 @@ module.exports = (grunt) => {
 					processors: [
 						require('postcss-import')(),
 						require('postcss-nested')(),
-						require('tailwindcss')(),
+						require('tailwindcss'),
 						require('autoprefixer')()
 					],
 					files: {
 						src: cssFiles,
-						dist: 'web/assets/css/pre-build',
-						root: `web/assets/css`
-					}
-				}
-			},
-			main: {
-				options: {
-					processors: [
-						require('postcss-import')(),
-						require('postcss-nested')(),
-						require('tailwindcss')()
-					],
-					files: {
-						src: ['web/assets/css/main.css'],
-						dist: 'web/assets/css/pre-build',
-						root: `web/assets/css`
-					}
-				}
-			},
-			utils: {
-				options: {
-					processors: [
-						require('postcss-import')(),
-						require('postcss-nested')(),
-						require('tailwindcss')()
-					],
-					files: {
-						src: ['web/assets/css/utils.css'],
 						dist: 'web/assets/css/pre-build',
 						root: `web/assets/css`
 					}
