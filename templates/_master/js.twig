@@ -26,8 +26,8 @@
 	{% set cacheBusterJsFile %}/assets/js/{{ craft.build.package.name }}.min.{{ craft.build.package.version }}.{{ craft.build.build.lastBuild }}.js{% endset %}
 	{% set cacheBusterJsEs5File %}/assets/js/{{ craft.build.package.name }}.es5.min.{{ craft.build.package.version }}.{{ craft.build.build.lastBuild }}.js{% endset %}
 
-	<script src="{{ cacheBusterJsEs5File }}" integrity="{{ craft.build.integrity(jsFile) }}"></script>
-	<script nomodule src="{{ cacheBusterJsFile }}" integrity="{{ craft.build.integrity(jsEs5File) }}"></script>
+	<script src="{{ cacheBusterJsEs5File }}" integrity="{{ craft.build.integrity(jsEs5File) }}"></script>
+	<script nomodule src="{{ cacheBusterJsFile }}" integrity="{{ craft.build.integrity(jsFile) }}"></script>
 {% endif %}
 
 {% for sources in craft.build.js.after %}
