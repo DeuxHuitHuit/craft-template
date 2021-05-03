@@ -56,21 +56,30 @@ if [[ ! $REPLY =~ ^[Yy]$ ]] ;then
 	abort
 fi
 
+read -p "🔎 Do you want to push on staging or prod (default to staging) (staging/production)? " -r
+PUSH_ENV_REPLY=${REPLY:-staging}
+
+PUSH_ENV="stagingremotepath"
+
+if [[ $PUSH_ENV_REPLY = "production" ]] ;then
+	PUSH_ENV="remotepath"
+fi
+
 echo ""
 echo "🤫 Fetching info from 1pass for ${OP_ITEM}."
 
 TOKEN=$(get_token)
 
 get_op_item() {
-	op get item $OP_ITEM --fields username,stagingremotepath,host,port --session $TOKEN
+	eval "op get item $OP_ITEM --fields username,$PUSH_ENV,host,port --session $TOKEN"
 }
 
 OP_ITEM_RESULT=$(get_op_item)
 
-HOST=$(echo $OP_ITEM_RESULT | jq -r '.host')
-REMOTE_PATH=$(echo $OP_ITEM_RESULT | jq -r '.stagingremotepath')
-USERNAME=$(echo $OP_ITEM_RESULT | jq -r '.username')
-PORT=$(echo $OP_ITEM_RESULT | jq -r '.port')
+HOST=$(echo $OP_ITEM_RESULT | jq -r ".host")
+REMOTE_PATH=$(echo $OP_ITEM_RESULT | jq -r ".$PUSH_ENV")
+USERNAME=$(echo $OP_ITEM_RESULT | jq -r ".username")
+PORT=$(echo $OP_ITEM_RESULT | jq -r ".port")
 
 echo ""
 echo "You are about to push on $HOST on port $PORT"
