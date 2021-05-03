@@ -2,105 +2,143 @@
 
 set -e
 
-OP_ITEM="< TO FILL >"
+OP_ITEM="<TO FILL>"
 
-command -v jq >/dev/null 2>&1 || { echo >&2 "Automated pushes require jq but it's not installed. Aborting."; exit 1; }
+command -v jq >/dev/null 2>&1 || { echo >&2 "Automated pushes require jq but it's not installed. See: https://stedolan.github.io/jq/ Aborting."; exit 1; }
 command -v op >/dev/null 2>&1 || { echo >&2 "Automated pushes require op but it's not installed. See: https://1password.com/downloads/command-line/ Aborting."; exit 1; }
 
 if [[ -z "${OP_AUTH_DOMAIN}" ]]; then
-  echo "OP_AUTH_DOMAIN is not set in your exports."
-  exit;
+	echo "OP_AUTH_DOMAIN is not set in your exports."
+	exit;
 else
-  OP_DOMAIN="${OP_AUTH_DOMAIN}"
+	OP_DOMAIN="${OP_AUTH_DOMAIN}"
 fi
 
 if [[ -z "${OP_AUTH_EMAIL}" ]]; then
-  echo "OP_AUTH_EMAIL is not set in your exports."
-  exit;
+	echo "OP_AUTH_EMAIL is not set in your exports."
+	exit;
 else
-  OP_EMAIL="${OP_AUTH_EMAIL}"
+	OP_EMAIL="${OP_AUTH_EMAIL}"
 fi
 
 if [[ -z "${OP_AUTH_SECRET_KEY}" ]]; then
-  echo "OP_AUTH_SECRET_KEY is not set in your exports."
-  exit;
+	echo "OP_AUTH_SECRET_KEY is not set in your exports."
+	exit;
 else
-  OP_SECRET_KEY="${OP_AUTH_SECRET_KEY}"
+	OP_SECRET_KEY="${OP_AUTH_SECRET_KEY}"
 fi
 
 get_token() {
-	op signin $OP_DOMAIN $OP_EMAIL $OP_SECRET_KEY -r
+	op signin $OP_AUTH_DOMAIN $OP_AUTH_EMAIL $OP_AUTH_SECRET_KEY -r
 }
 
 PACKAGE_VERSION=$(cat package.json \
-  | grep version \
-  | head -1 \
-  | awk -F: '{ print $2 }' \
-  | sed 's/[", ]//g')
+	| grep version \
+	| head -1 \
+	| awk -F: '{ print $2 }' \
+	| sed 's/[", ]//g')
 
 PACKAGE_NAME=$(cat package.json \
-  | grep name \
-  | head -1 \
-  | awk -F: '{ print $2 }' \
-  | sed 's/[", ]//g')
+	| grep name \
+	| head -1 \
+	| awk -F: '{ print $2 }' \
+	| sed 's/[", ]//g')
 
 function abort {
-	echo -n "Aborting push"
+	echo "Aborting push"
 	exit
 }
 
-echo -n "You are about to push in PROD the version $PACKAGE_VERSION Are you sure (y/n)? "
-read answer
 
-if [ "$answer" == "${answer#[Yy]}" ] ;then
+read -p "🚀 You are about to push the version $PACKAGE_VERSION Are you sure (y/n)? " -r
+
+if [[ ! $REPLY =~ ^[Yy]$ ]] ;then
 	abort
 fi
 
-echo -n "Code reviews are done (y/n)? "
-read answer
-
-if [ "$answer" == "${answer#[Yy]}" ] ;then
-	abort
-fi
-
-echo -n "The team is aware of your push (y/n)? "
-read answer
-
-if [ "$answer" == "${answer#[Yy]}" ] ;then
-	abort
-fi
+echo ""
+echo "🤫 Fetching info from 1pass for ${OP_ITEM}."
 
 TOKEN=$(get_token)
 
 get_op_item() {
-	op get item $OP_ITEM --fields username,password,remotepath,host --session $TOKEN
+	op get item $OP_ITEM --fields username,stagingremotepath,host,port --session $TOKEN
 }
 
 OP_ITEM_RESULT=$(get_op_item)
 
 HOST=$(echo $OP_ITEM_RESULT | jq -r '.host')
-PASSWORD=$(echo $OP_ITEM_RESULT | jq -r '.password')
-REMOTE_PATH=$(echo $OP_ITEM_RESULT | jq -r '.remotepath')
+REMOTE_PATH=$(echo $OP_ITEM_RESULT | jq -r '.stagingremotepath')
 USERNAME=$(echo $OP_ITEM_RESULT | jq -r '.username')
+PORT=$(echo $OP_ITEM_RESULT | jq -r '.port')
 
-function _ftp {
-	find $1 -type f | xargs -I{} bash -c "curl -sS --ssl --ftp-create-dirs -T {} -u $USERNAME:$PASSWORD ftp://$HOST$REMOTE_PATH/{} && echo 'Pushed file: {}'"
+echo ""
+echo "You are about to push on $HOST on port $PORT"
+echo "You are using user $USERNAME"
+echo "Remote path is $REMOTE_PATH"
+echo ""
+
+read -p "🚩 Is the above correct (y/n)? " -r
+
+if [[ ! $REPLY =~ ^[Yy]$ ]] ;then
+	abort
+fi
+
+function _file {
+	FINAL_REMOTE_PATH=$(dirname $REMOTE_PATH/$1)
+	CMD="rsync -a -e 'ssh -p $PORT' $1$2 $USERNAME@$HOST:$FINAL_REMOTE_PATH";
+	eval $CMD
 }
 
-printf "\n"
-printf "\n"
+function _folder {
+	CMD="rsync -a --delete -e 'ssh -p $PORT' $1$2 $USERNAME@$HOST:$REMOTE_PATH/$1";
+	eval $CMD
+}
 
-_ftp config/
-_ftp modules/
-_ftp templates/
-_ftp translations/
-_ftp web/assets/img/
-_ftp web/assets/fonts/
-_ftp web/assets/js/$PACKAGE_NAME.min.js
-_ftp web/assets/css/$PACKAGE_NAME.min.css
-_ftp js.json
-_ftp css.json
-_ftp build.json
-_ftp package.json
-_ftp composer.json
-_ftp composer.lock
+read -p "🔨 Do you want to build before (y/n)? " -r
+
+if [[ $REPLY =~ ^[Yy]$ ]] ;then
+	npm run build
+fi
+
+echo "😴 Shutting down the website."
+eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft off"
+echo "🗄 Backing up the database."
+eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft db/backup"
+echo "📡 Syncing code with servers."
+
+_folder config/
+_folder modules/
+_folder templates/
+_folder translations/
+_folder web/assets/fonts/
+_folder web/assets/img/
+_file web/assets/js/$PACKAGE_NAME.min.js
+_file web/assets/js/$PACKAGE_NAME.es5.min.js
+_file web/assets/css/$PACKAGE_NAME.min.css
+_file web/favicon.ico
+_file js.json
+_file css.json
+_file build.json
+_file package.json
+_file composer.json
+_file composer.lock
+
+echo "🦴 Diff the project configuration."
+eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft project-config/diff"
+
+read -p "🔨 Do you want to apply the new project config (y/n)? " -r
+
+if [[ $REPLY =~ ^[Yy]$ ]] ;then
+	echo "🔨 Applying the new project configuration."
+	eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft migrate/all"
+	eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft project-config/apply"
+fi
+
+echo "🗑 Flushing the cache."
+eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft cache/flush-all"
+
+echo "🌞 Waking up the website."
+eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft on"
+
+echo "🔥 Version $PACKAGE_VERSION is now online."
