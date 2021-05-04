@@ -8,7 +8,7 @@
 	const scope = document.querySelector('#site');
 
 	const sels = {
-		links: 'a[href]'
+		links: 'a[href]',
 	};
 
 	const init = function () {
@@ -17,7 +17,6 @@
 			target = target || event.target.closest(sels.links);
 
 			if (!!target && !(event.ctrlKey || event.metaKey)) {
-
 				// is ours ?
 				if (target.origin !== window.location.origin) {
 					return;
@@ -34,8 +33,10 @@
 				}
 
 				// is not target _blank
-				if (target.getAttribute('target') !== null &&
-					target.getAttribute('target') !== 'self') {
+				if (
+					target.getAttribute('target') !== null &&
+					target.getAttribute('target') !== 'self'
+				) {
 					return;
 				}
 
@@ -60,7 +61,6 @@
 	};
 
 	App.modules.exports('url-changer', {
-		init: init
+		init: init,
 	});
-
 })();

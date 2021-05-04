@@ -14,15 +14,15 @@
 			requestURI: window.location.toString(),
 			language: lang,
 			referer: document.referrer,
-			title: document.title
-		}
+			title: document.title,
+		},
 	};
 
 	const log = (options) => {
 		options = JSON.stringify(options, null, 2);
 		App.log({
 			me: 'Tracking',
-			args: ['%cpush(' + options + ');', 'color:cornflowerblue']
+			args: ['%cpush(' + options + ');', 'color:cornflowerblue'],
 		});
 	};
 
@@ -32,7 +32,7 @@
 		}
 		window.dataLayer.push({
 			...defaults,
-			...options
+			...options,
 		});
 	};
 
@@ -46,6 +46,4 @@
 		}
 		push(options);
 	});
-
 })();
-

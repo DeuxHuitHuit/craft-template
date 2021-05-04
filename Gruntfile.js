@@ -5,7 +5,7 @@ module.exports = (grunt) => {
 
 	grunt.initConfig({
 		pkg: pkg,
-		buildnum: {}
+		buildnum: {},
 	});
 
 	const tasks = grunt.file.expand({ filter: 'isFile', cwd: 'tasks' }, ['*']);
@@ -22,8 +22,9 @@ module.exports = (grunt) => {
 	grunt.loadNpmTasks('grunt-ftp-push');
 	grunt.loadNpmTasks('grunt-babel');
 	grunt.loadNpmTasks('grunt-env');
+	grunt.loadNpmTasks('grunt-prettier');
 
-	grunt.registerTask('dev-js', ['jshint']);
+	grunt.registerTask('dev-js', ['prettier', 'jshint']);
 	grunt.registerTask('dev', ['dev-js']);
 
 	grunt.registerTask('js', [
@@ -33,7 +34,7 @@ module.exports = (grunt) => {
 		'concat:js',
 		'babel:es5',
 		'babel:modern',
-		'headers:js'
+		'headers:js',
 	]);
 	grunt.registerTask('css', ['clean:css', 'postcss:build', 'concat:css', 'csso', 'headers:css']);
 	grunt.registerTask('css-dev', ['clean:css', 'postcss:build', 'ftp_push:dev']);
