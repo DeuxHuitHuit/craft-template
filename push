@@ -2,7 +2,8 @@
 
 set -e
 
-OP_ITEM="<TO FILL>"
+OP_PRODUCTION="<TO FILL>"
+OP_STAGING="<TO FILL>"
 
 command -v jq >/dev/null 2>&1 || { echo >&2 "Automated pushes require jq but it's not installed. See: https://stedolan.github.io/jq/ Aborting."; exit 1; }
 command -v op >/dev/null 2>&1 || { echo >&2 "Automated pushes require op but it's not installed. See: https://1password.com/downloads/command-line/ Aborting."; exit 1; }
@@ -59,10 +60,10 @@ fi
 read -p "🔎 Do you want to push on staging or prod (default to staging) (staging/production)? " -r
 PUSH_ENV_REPLY=${REPLY:-staging}
 
-PUSH_ENV="stagingremotepath"
+OP_ITEM="$OP_STAGING"
 
 if [[ $PUSH_ENV_REPLY = "production" ]] ;then
-	PUSH_ENV="remotepath"
+	OP_ITEM="$OP_PRODUCTION"
 fi
 
 echo ""
@@ -71,13 +72,13 @@ echo "🤫 Fetching info from 1pass for ${OP_ITEM}."
 TOKEN=$(get_token)
 
 get_op_item() {
-	eval "op get item $OP_ITEM --fields username,$PUSH_ENV,host,port --session $TOKEN"
+	eval "op get item $OP_ITEM --fields username,remotepath,host,port --session $TOKEN"
 }
 
 OP_ITEM_RESULT=$(get_op_item)
 
 HOST=$(echo $OP_ITEM_RESULT | jq -r ".host")
-REMOTE_PATH=$(echo $OP_ITEM_RESULT | jq -r ".$PUSH_ENV")
+REMOTE_PATH=$(echo $OP_ITEM_RESULT | jq -r ".remotepath")
 USERNAME=$(echo $OP_ITEM_RESULT | jq -r ".username")
 PORT=$(echo $OP_ITEM_RESULT | jq -r ".port")
 
