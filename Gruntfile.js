@@ -22,8 +22,9 @@ module.exports = (grunt) => {
 	grunt.loadNpmTasks('grunt-ftp-push');
 	grunt.loadNpmTasks('grunt-babel');
 	grunt.loadNpmTasks('grunt-env');
+	grunt.loadNpmTasks('grunt-complexity');
 
-	grunt.registerTask('dev-js', ['jshint']);
+	grunt.registerTask('dev-js', ['complexity', 'jshint']);
 	grunt.registerTask('dev', ['dev-js']);
 
 	grunt.registerTask('js', [
