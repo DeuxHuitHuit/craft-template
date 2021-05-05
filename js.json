@@ -16,7 +16,9 @@
 		"modules/ajax.js",
 		"modules/url-changer.js",
 		"modules/link-selector.js",
-		"modules/watermark.js"
+		"modules/watermark.js",
+
+		"utils/globals.js"
 	],
 	"after": [
 
