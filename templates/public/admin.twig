@@ -5,6 +5,8 @@
 	{% set links = [] %}
 	{% set qs = craft.app.request.queryParams %}
 
+	{% header "Cache-Control: private, no-cache" %}
+
 	{% for site in sites if site.baseUrl is not empty %}
 		{% set title = craft.app.i18n.getLocaleById(site.language).nativeName %}
 		{% set url = site.getBaseUrl() %}
