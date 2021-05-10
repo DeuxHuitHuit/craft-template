@@ -11,6 +11,7 @@
 		"fx/compute-options.js",
 		"fx/change-state.js",
 
+		"modules/admin.js",
 		"modules/metas.js",
 		"modules/language-links.js",
 		"modules/ajax.js",
