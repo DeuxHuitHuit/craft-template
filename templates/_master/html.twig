@@ -2,9 +2,7 @@
 {% set sites = craft.app.sites.getAllSites() %}
 {% set locales = sites|map(s => s.language)|join(',') %}
 
-{% if craft.app.getuser and craft.app.getuser.getIdentity and craft.app.getuser.getIdentity.can('accessCp') %}
-	{% header "Cache-Control: private, no-cache" %}
-{% endif %}
+{% include "_lib/cache.twig" %}
 
 <!DOCTYPE html>
 <html lang="{{ locale.id }}" data-all-langs="{{ locales }}" data-version="{{ craft.build.package.version }}.{{ craft.build.build.lastBuild }}">
