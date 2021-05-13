@@ -38,8 +38,10 @@ return [
         'upscaleImages' => false,
 
         'transformGifs' => false,
-        
+
         'sendPoweredByHeader' => false,
+
+        'cacheTTL' => 14400, // 12 hours
     ],
 
     // Dev environment settings

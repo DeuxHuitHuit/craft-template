@@ -1,11 +1,11 @@
+{% header "Cache-Control: private, no-cache" %}
+
 {% if craft.app.getuser and craft.app.getuser.getIdentity and craft.app.getuser.getIdentity.can('accessCp') %}
 	{% set currentElement = craft.app.urlManager.matchedElement %}
 	{% set editUrl = currentElement.cpEditUrl|default %}
 	{% set sites = craft.app.getSites().getGroupById(currentSite.groupId).getSites() %}
 	{% set links = [] %}
 	{% set qs = craft.app.request.queryParams %}
-
-	{% header "Cache-Control: private, no-cache" %}
 
 	{% for site in sites if site.baseUrl is not empty %}
 		{% set title = craft.app.i18n.getLocaleById(site.language).nativeName %}

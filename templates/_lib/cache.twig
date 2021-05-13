@@ -1,0 +1,17 @@
+{#
+  If a user is logged in and can access the CP, it will
+  automatically set the cache control to no-cache
+
+  If anything else and a template did not set any private cache
+  headers set the default cache to craft.app.config.general.cacheTTL
+ #}
+
+{% if craft.app.getuser and craft.app.getuser.getIdentity and craft.app.getuser.getIdentity.can('accessCp') %}
+	{% header "Cache-Control: private, no-cache" %}
+{% elseif craft.app.response.headers.get('cache-control') != 'private, no-cache' %}
+	{% set cacheLength = craft.app.config.general.cacheTTL %}
+	{% set expiry = now|date_modify('+' ~ cacheLength ~' seconds') %}
+
+	{% header "Cache-Control: public, max-age=" ~ cacheLength %}
+	{% header "Expires: " ~ expiry|date('D, d M Y H:i:s', 'GMT', 'en') ~ " GMT" %}
+{% endif %}
