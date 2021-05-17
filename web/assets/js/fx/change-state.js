@@ -29,32 +29,31 @@
  *          {item,state,flag}
  *
  */
-(function ($, undefined) {
+ (function ($, undefined) {
+	
 	'use strict';
 	var win = $(window);
 
 	var isSvgElement = function (item) {
-		return (
-			!!item &&
-			!!item.length &&
-			(item[0].nodeName === 'polygon' ||
-				item[0].nodeName === 'polyline' ||
-				item[0].nodeName === 'path' ||
-				item[0].nodeName === 'g' ||
-				item[0].nodeName === 'circle' ||
-				item[0].nodeName === 'rect' ||
-				item[0].nodeName === 'text')
+		return !!item && !!item.length && (
+			item[0].nodeName === 'polygon' ||
+			item[0].nodeName === 'polyline' ||
+			item[0].nodeName === 'path' ||
+			item[0].nodeName === 'g' ||
+			item[0].nodeName === 'circle' ||
+			item[0].nodeName === 'rect' ||
+			item[0].nodeName === 'text'
 		);
 	};
 
 	var notifyChanges = function (notifyOn, notifyOff, item, state, flag) {
 		if (flag && notifyOn.length) {
 			$.each(notifyOn.split(/\s|,/), function (i, e) {
-				App.mediator.notify(e, { item: item, state: state, flag: flag });
+				App.mediator.notify(e, {item: item, state: state, flag: flag});
 			});
 		} else if (!flag && notifyOff.length) {
 			$.each(notifyOff.split(/\s|,/), function (i, e) {
-				App.mediator.notify(e, { item: item, state: state, flag: flag });
+				App.mediator.notify(e, {item: item, state: state, flag: flag});
 			});
 		}
 	};
@@ -91,17 +90,18 @@
 				if (addClass) {
 					newClass.push(addClass.split(' '));
 				}
-
+				
 				//Add Flag class
 				newClass.push(flagClass);
 
 				//Remove class
 				$.each(curClass, function (i, e) {
+
 					if (remClassArray.indexOf(e) === -1) {
 						newClass.push(e);
 					}
 				});
-
+				
 				$.each(newClass, function (i, e) {
 					finalClass += ' ' + e;
 				});
@@ -136,6 +136,7 @@
 
 				item.attr('class', finalClass);
 			};
+
 
 			if (flag) {
 				ieOn();
@@ -175,7 +176,7 @@
 				item.removeClass(flagClass);
 			}
 		}
-
+		
 		notifyChanges(notifyOnAfter, notifyOffAfter, item, state, flag);
 	};
 
@@ -188,10 +189,10 @@
 		if (followerCommonAncestor) {
 			followerScope = item.closest(followerCommonAncestor);
 		}
-
+		
 		var followers = followerScope.find(followerSelector);
 
-		App.modules.notify('changeState.begin', { item: item, state: state, flag: flag });
+		App.modules.notify('changeState.begin', {item: item, state: state, flag: flag});
 
 		//Execute change
 		doSetItemState(item, state, flag);
@@ -201,8 +202,8 @@
 			var it = $(this);
 			setItemState(it, state, flag);
 		});
-
-		App.modules.notify('changeState.end', { item: item, state: state, flag: flag });
+		
+		App.modules.notify('changeState.end', {item: item, state: state, flag: flag});
 	};
 
 	var processItem = function (item, state, action, callbacks) {
@@ -246,11 +247,8 @@
 				App.callback(callbacks.off);
 			}
 		} else {
-			App.log(
-				'Action: ' +
-					action +
-					' is not recognized: Actions available are : toggle, on or off',
-			);
+			App.log('Action: ' + action +
+				' is not recognized: Actions available are : toggle, on or off');
 		}
 	};
 
@@ -269,10 +267,11 @@
 			});
 		}
 	};
-
+	
 	var fxChangeState = function (key, data) {
 		onUpdateState(key, data);
 	};
 
 	App.fx.exports('changeState.update', fxChangeState);
+	
 })(jQuery);

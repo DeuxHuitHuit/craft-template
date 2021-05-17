@@ -1,8 +1,9 @@
 /**
- * ajax
- * @author Deux Huit Huit
- */
+* ajax
+* @author Deux Huit Huit
+*/
 ((undefined) => {
+
 	'use strict';
 
 	const updatePage = (event) => {
@@ -12,19 +13,14 @@
 			return window.pd(event, true);
 		}
 
-		App.mediator.notify('url.changed', { event: event }, (key, ret) => {
+		App.mediator.notify('url.changed', {event: event}, (key, ret) => {
 			preventGoto = ret;
 		});
 
 		if (!preventGoto) {
-			App.mediator.goto(
-				document.location.href,
-				undefined,
-				{
-					type: event.type,
-				},
-				false,
-			);
+			App.mediator.goto(document.location.href, undefined, {
+				type: event.type
+			}, false);
 		}
 
 		return window.pd(event, true);
@@ -36,6 +32,7 @@
 	};
 
 	App.modules.exports('ajax', {
-		init: init,
+		init: init
 	});
+
 })();

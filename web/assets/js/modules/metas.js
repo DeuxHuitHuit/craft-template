@@ -1,8 +1,9 @@
 /**
- * metas
- * @author Deux Huit Huit
- */
+* metas
+* @author Deux Huit Huit
+*/
 (($, undefined) => {
+
 	'use strict';
 
 	const scope = $('head');
@@ -19,7 +20,7 @@
 			link[rel="icon"],
 			link[rel="alternate"],
 			script[type="application/ld+json"]
-		`,
+		`
 	};
 
 	sels.tags = sels.tags.replace(/\s/g, '');
@@ -33,7 +34,7 @@
 			scope.find(sels.tags).remove();
 			scope.append(metas[data.page.key()]);
 			App.mediator.notify('metas.updated', {
-				metas: metas[data.page.key()],
+				metas: metas[data.page.key()]
 			});
 		}
 	};
@@ -45,16 +46,17 @@
 	const actions = () => {
 		return {
 			pages: {
-				loaded: onPageLoaded,
+				loaded: onPageLoaded
 			},
 			page: {
-				enter: onPageEnter,
-			},
+				enter: onPageEnter
+			}
 		};
 	};
 
 	App.modules.exports('metas', {
 		init: init,
-		actions: actions,
+		actions: actions
 	});
+
 })(window.jQuery);

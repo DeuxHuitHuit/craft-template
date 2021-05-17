@@ -1,15 +1,16 @@
 /**
- * language-links
- * @author Deux Huit Huit
- */
+* language-links
+* @author Deux Huit Huit
+*/
 (($, undefined) => {
+
 	'use strict';
 
 	const scope = $('#site');
 
 	const sels = {
 		item: '.js-language-link',
-		metas: 'link[rel="alternate"]',
+		metas: 'link[rel="alternate"]'
 	};
 
 	const updated = (key, data) => {
@@ -26,12 +27,13 @@
 	const actions = () => {
 		return {
 			metas: {
-				updated,
-			},
+				updated
+			}
 		};
 	};
 
 	App.modules.exports('language-links', {
-		actions: actions,
+		actions: actions
 	});
+	
 })(window.jQuery);

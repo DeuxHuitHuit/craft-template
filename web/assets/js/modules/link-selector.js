@@ -3,6 +3,7 @@
  * @author Deux Huit Huit
  */
 (function ($, undefined) {
+
 	'use strict';
 
 	var isMultilingual = ($('html').attr('data-all-langs') || '').split(',').length > 1 || true;
@@ -21,13 +22,13 @@
 			App.fx.notify('changeState.update', {
 				item: t,
 				state: 'current-link-partial',
-				action: 'off',
+				action: 'off'
 			});
-
+	
 			App.fx.notify('changeState.update', {
 				item: t,
 				state: 'current-link',
-				action: 'off',
+				action: 'off'
 			});
 		});
 
@@ -58,14 +59,14 @@
 			App.fx.notify('changeState.update', {
 				item: t,
 				state: 'current-link-partial',
-				action: !!matches.length && pathname !== currentPath ? 'on' : 'off',
+				action: (!!matches.length && pathname !== currentPath) ? 'on' : 'off'
 			});
 
 			// Exact match
 			App.fx.notify('changeState.update', {
 				item: t,
 				state: 'current-link',
-				action: pathname === currentPath ? 'on' : 'off',
+				action: pathname === currentPath ? 'on' : 'off'
 			});
 		});
 	};
@@ -85,16 +86,17 @@
 	var actions = function () {
 		return {
 			page: {
-				enter: onPageEnter,
+				enter: onPageEnter
 			},
 			articleChanger: {
-				enter: onArticleEnter,
-			},
+				enter: onArticleEnter
+			}
 		};
 	};
 
 	App.modules.exports('link-selector', {
 		init: init,
-		actions: actions,
+		actions: actions
 	});
+
 })(jQuery);
