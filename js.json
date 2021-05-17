@@ -18,13 +18,10 @@
 		"modules/url-changer.js",
 		"modules/link-selector.js",
 		"modules/watermark.js",
+		"modules/ios-ajax-img-fix.js",
 
 		"utils/globals.js"
 	],
-	"after": [
-
-	],
-	"dev": [
-
-	]
+	"after": [],
+	"dev": []
 }
