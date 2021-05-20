@@ -42,6 +42,8 @@ return [
         'sendPoweredByHeader' => false,
 
         'cacheTTL' => 14400, // 12 hours
+
+        'generateTransformsBeforePageLoad' => true,
     ],
 
     // Dev environment settings
