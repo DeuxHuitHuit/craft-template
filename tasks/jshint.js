@@ -2,7 +2,13 @@ module.exports = function shopify(grunt) {
 	'use strict';
 
 	const jsJson = grunt.file.readJSON('js.json');
-	const jsFiles = jsJson.sources.map((source) => { return `web/assets/js/${source}` }).filter((source) => { return !source.endsWith('.min.js'); });
+	const jsFiles = jsJson.sources
+		.map((source) => {
+			return `web/assets/js/${source}`;
+		})
+		.filter((source) => {
+			return !source.endsWith('.min.js');
+		});
 
 	grunt.config.merge({
 		jshint: {
@@ -28,6 +34,7 @@ module.exports = function shopify(grunt) {
 				maxstatements: 30,
 				maxlen: 100,
 				nonbsp: true,
+				laxbreak: true, // Allow prettier ternary formatting
 
 				// relax options
 				regexp: true,
@@ -49,11 +56,10 @@ module.exports = function shopify(grunt) {
 					module: true,
 					google: true,
 					CSS3: true,
-					Shopify: true
-				}
+					Shopify: true,
+				},
 			},
-			all: jsFiles
-		}
+			all: jsFiles,
+		},
 	});
-
 };
