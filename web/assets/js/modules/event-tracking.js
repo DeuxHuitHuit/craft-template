@@ -34,13 +34,15 @@
 	};
 
 	const onClick = (e) => {
-		track(e.currentTarget, 'click');
+		const trackTarget = e.target.closest(sels.click);
+		if (!trackTarget) {
+			return;
+		}
+		track(trackTarget, 'click');
 	};
 
 	const init = () => {
-		document.querySelectorAll(sels.click).forEach((el) => {
-			el.addEventListener('click', onClick);
-		});
+		document.querySelector('#site').addEventListener('click', onClick);
 	};
 
 	App.modules.exports('event-tracking', {
