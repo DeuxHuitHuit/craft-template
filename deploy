@@ -1,0 +1,125 @@
+#!/bin/sh
+
+set -e
+
+OP_PRODUCTION="<TO FILL>"
+OP_STAGING="<TO FILL>"
+
+OP_TOKEN=$(cat /root/.opsession)
+
+command -v jq >/dev/null 2>&1 || { echo >&2 "Automated pushes require jq but it's not installed. See: https://stedolan.github.io/jq/ Aborting."; exit 1; }
+command -v op >/dev/null 2>&1 || { echo >&2 "Automated pushes require op but it's not installed. See: https://1password.com/downloads/command-line/ Aborting."; exit 1; }
+
+cd /root/project
+
+PACKAGE_VERSION=$(cat package.json \
+	| grep version \
+	| head -1 \
+	| awk -F: '{ print $2 }' \
+	| sed 's/[", ]//g')
+
+PACKAGE_NAME=$(cat package.json \
+	| grep name \
+	| head -1 \
+	| awk -F: '{ print $2 }' \
+	| sed 's/[", ]//g')
+
+function abort {
+	echo "Aborting push"
+	exit
+}
+
+read -p "🚀 You are about to push the version $PACKAGE_VERSION Are you sure (y/n)? " -r
+
+if [[ ! $REPLY =~ ^[Yy]$ ]] ;then
+	abort
+fi
+
+read -p "🔎 Do you want to push on staging or prod (default to staging) (staging/production)? " -r
+PUSH_ENV_REPLY=${REPLY:-staging}
+
+OP_ITEM="$OP_STAGING"
+
+if [[ $PUSH_ENV_REPLY = "production" ]] ;then
+	OP_ITEM="$OP_PRODUCTION"
+fi
+
+echo ""
+echo "🤫 Fetching info from 1pass for ${OP_ITEM}."
+
+TOKEN=$(get_token)
+
+get_op_item() {
+	eval "op get item $OP_ITEM --fields username,remotepath,host,port --session $OP_TOKEN"
+}
+
+OP_ITEM_RESULT=$(get_op_item)
+
+HOST=$(echo $OP_ITEM_RESULT | jq -r ".host")
+REMOTE_PATH=$(echo $OP_ITEM_RESULT | jq -r ".remotepath")
+USERNAME=$(echo $OP_ITEM_RESULT | jq -r ".username")
+PORT=$(echo $OP_ITEM_RESULT | jq -r ".port")
+
+echo ""
+echo "You are about to push on $HOST on port $PORT"
+echo "You are using user $USERNAME"
+echo "Remote path is $REMOTE_PATH"
+echo ""
+
+read -p "🚩 Is the above correct (y/n)? " -r
+
+if [[ ! $REPLY =~ ^[Yy]$ ]] ;then
+	abort
+fi
+
+function _file {
+	FINAL_REMOTE_PATH=$(dirname $REMOTE_PATH/$1)
+	CMD="rsync -a -e 'ssh -p $PORT' $1$2 $USERNAME@$HOST:$FINAL_REMOTE_PATH";
+	eval $CMD
+}
+
+function _folder {
+	CMD="rsync -a --delete -e 'ssh -p $PORT' $1$2 $USERNAME@$HOST:$REMOTE_PATH/$1";
+	eval $CMD
+}
+
+npm i
+npm run build
+
+echo "🗄 Backing up the database."
+eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft db/backup"
+echo "😴 Shutting down the website."
+eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft off"
+echo "📡 Syncing code with servers."
+
+_folder config/
+_folder modules/
+_folder templates/
+_folder translations/
+_folder web/assets/fonts/
+_folder web/assets/img/
+_file web/assets/js/$PACKAGE_NAME.min.js
+_file web/assets/js/$PACKAGE_NAME.es5.min.js
+_file web/assets/css/$PACKAGE_NAME.min.css
+_file web/favicon.ico
+_file js.json
+_file css.json
+_file build.json
+_file package.json
+_file composer.json
+_file composer.lock
+echo "File sync done."
+
+echo "🎼 Recompiling auto-load files"
+eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/composer dump-autoload -a"
+
+echo "🗑 Flushing Craft's cache."
+eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft cache/flush-all"
+
+echo "☁️ Flushing Cloudflare's cache."
+eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft cloudflare/purge/purge-all"
+
+echo "🌞 Waking up the website."
+eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft on"
+
+echo "🔥 Version $PACKAGE_VERSION is now online."
