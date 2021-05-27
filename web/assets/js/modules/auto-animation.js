@@ -55,7 +55,7 @@
 	var onPostScroll = function () {
 		$.each(animations, function (index, comp) {
 			var t = comp.get();
-			if (!!t.length) {
+			if (!!t.length && comp.inited()) {
 				(!!t.data(CAN_PLAY_KEY) ? comp.play : comp.pause)();
 			}
 		});
