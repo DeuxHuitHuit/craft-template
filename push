@@ -5,33 +5,12 @@ set -e
 OP_PRODUCTION="<TO FILL>"
 OP_STAGING="<TO FILL>"
 
+OP_TOKEN=$(cat /root/.opsession)
+
 command -v jq >/dev/null 2>&1 || { echo >&2 "Automated pushes require jq but it's not installed. See: https://stedolan.github.io/jq/ Aborting."; exit 1; }
 command -v op >/dev/null 2>&1 || { echo >&2 "Automated pushes require op but it's not installed. See: https://1password.com/downloads/command-line/ Aborting."; exit 1; }
 
-if [[ -z "${OP_AUTH_DOMAIN}" ]]; then
-	echo "OP_AUTH_DOMAIN is not set in your exports."
-	exit;
-else
-	OP_DOMAIN="${OP_AUTH_DOMAIN}"
-fi
-
-if [[ -z "${OP_AUTH_EMAIL}" ]]; then
-	echo "OP_AUTH_EMAIL is not set in your exports."
-	exit;
-else
-	OP_EMAIL="${OP_AUTH_EMAIL}"
-fi
-
-if [[ -z "${OP_AUTH_SECRET_KEY}" ]]; then
-	echo "OP_AUTH_SECRET_KEY is not set in your exports."
-	exit;
-else
-	OP_SECRET_KEY="${OP_AUTH_SECRET_KEY}"
-fi
-
-get_token() {
-	op signin $OP_AUTH_DOMAIN $OP_AUTH_EMAIL $OP_AUTH_SECRET_KEY -r
-}
+cd /root/project
 
 PACKAGE_VERSION=$(cat package.json \
 	| grep version \
@@ -72,7 +51,7 @@ echo "🤫 Fetching info from 1pass for ${OP_ITEM}."
 TOKEN=$(get_token)
 
 get_op_item() {
-	eval "op get item $OP_ITEM --fields username,remotepath,host,port --session $TOKEN"
+	eval "op get item $OP_ITEM --fields username,remotepath,host,port --session $OP_TOKEN"
 }
 
 OP_ITEM_RESULT=$(get_op_item)
@@ -111,10 +90,10 @@ if [[ $REPLY =~ ^[Yy]$ ]] ;then
 	npm run build
 fi
 
-echo "😴 Shutting down the website."
-eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft off"
 echo "🗄 Backing up the database."
 eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft db/backup"
+echo "😴 Shutting down the website."
+eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft off"
 echo "📡 Syncing code with servers."
 
 _folder config/
@@ -133,20 +112,16 @@ _file build.json
 _file package.json
 _file composer.json
 _file composer.lock
+echo "File sync done."
 
-echo "🦴 Diff the project configuration."
-eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft project-config/diff"
+echo "🎼 Recompiling auto-load files"
+eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/composer dump-autoload -a"
 
-read -p "🔨 Do you want to apply the new project config (y/n)? " -r
-
-if [[ $REPLY =~ ^[Yy]$ ]] ;then
-	echo "🔨 Applying the new project configuration."
-	eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft migrate/all"
-	eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft project-config/apply"
-fi
-
-echo "🗑 Flushing the cache."
+echo "🗑 Flushing Craft's cache."
 eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft cache/flush-all"
+
+echo "☁️ Flushing Cloudflare's cache."
+eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft cloudflare/purge/purge-all"
 
 echo "🌞 Waking up the website."
 eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft on"
