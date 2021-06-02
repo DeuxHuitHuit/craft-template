@@ -4,6 +4,7 @@ set -e
 
 OP_PRODUCTION="<TO FILL>"
 OP_STAGING="<TO FILL>"
+SLACK_CHANNEL="<TO FILL>"
 
 OP_TOKEN=$(cat /root/.opsession)
 
@@ -120,3 +121,17 @@ echo "🌞 Waking up the website."
 eval "ssh -p $PORT $USERNAME@$HOST $REMOTE_PATH/craft on"
 
 echo "🔥 Version $PACKAGE_VERSION is now online."
+
+if [[ ! -z "$SLACK_CHANNEL" ]]; then
+	echo "🔔 Notifing in slack"
+
+	OP_SLACK_WEBHOOK_RESULT=$(op get item $OP_SLACK_WEBHOOK --fields url --session $OP_TOKEN)
+
+	curl --location --request POST $OP_SLACK_WEBHOOK_RESULT \
+		--header 'Content-Type: application/json' \
+		--data-raw "{
+			'channel': '$SLACK_CHANNEL',
+			'text': '<!channel> v.$PACKAGE_VERSION est en ligne sur $PUSH_ENV_REPLY :fire:'
+		}
+	"
+fi
