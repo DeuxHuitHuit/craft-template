@@ -1,9 +1,11 @@
 #!/bin/sh
 
-DIRECTORY_NAME=${PWD##*/}
-read -p "🔎 Container name: ($DIRECTORY_NAME): " -r
+CONTAINER_NAME=$(cat package.json \
+	| grep name \
+	| head -1 \
+	| awk -F: '{ print $2 }' \
+	| sed 's/[", ]//g')
 
-CONTAINER_NAME=${REPLY:-$DIRECTORY_NAME}
 SVN_REPO=$(svn info --show-item url)
 
 if [ ! "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
@@ -11,7 +13,8 @@ if [ ! "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
 		# cleanup
 		docker rm $CONTAINER_NAME
 	fi
-
+	
+	echo "🔍 Container $CONTAINER_NAME not found. Creating it."
 	docker run -dit --name $CONTAINER_NAME deuxhuithuit/push
 fi
 
