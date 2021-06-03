@@ -18,5 +18,5 @@ if [ ! "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
 	docker run -dit --name $CONTAINER_NAME deuxhuithuit/push
 fi
 
-docker exec -it $CONTAINER_NAME /bin/bash /checkout.sh $SVN_REPO
-docker exec -it $CONTAINER_NAME /bin/bash /root/project/deploy
+MSYS_NO_PATHCONV=1 docker exec -it $CONTAINER_NAME "/bin/bash" "/checkout.sh" "$SVN_REPO"
+MSYS_NO_PATHCONV=1 docker exec -it $CONTAINER_NAME "/bin/bash" "/root/project/deploy"
