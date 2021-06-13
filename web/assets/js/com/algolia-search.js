@@ -21,9 +21,17 @@
 			var attribs = !opts.algoliaAttributesToRetrieve ?
 				['url', 'title'] :
 				opts.algoliaAttributesToRetrieve.split(',');
+			var highlightAttribs = !opts.algoliaAttributesToHighlight ?
+				[] :
+				opts.algoliaAttributesToHighlight.split(',');
 			return _.reduce(attribs, function (memo, k) {
-				memo[k] = hit[k];
-				if (!!memo[k] && k === 'url') {
+				if (highlightAttribs.includes(k) &&
+					!!hit._highlightResult && !!hit._highlightResult[k]) {
+					memo[k] = hit._highlightResult[k].value;
+				} else {
+					memo[k] = hit[k];
+				}
+				if (!!memo[k] && k === 'url' && opts.trimRootUrl) {
 					memo[k] = memo[k].replace(rootUrl, '');
 				}
 				return memo;
@@ -38,6 +46,7 @@
 			inputSelector: '.js-algolia-input',
 			resultsCtnSelector: '.js-algolia-results-ctn',
 			resultsContentSelector: '.js-algolia-results-content',
+			searchResultContent: '.js-algolia-search-results',
 			noResultsTemplateSelector: '.js-algolia-no-results-template',
 			resultsItemTemplateSelector: '.js-algolia-results-item-template',
 			algoliaAttributesToRetrieve: 'title,url,image',
@@ -69,10 +78,10 @@
 			recommendResultsLimit: 5,
 			recommendHitsPerPage: 10,
 			minChar: 3,
-			gaCat: 'Search',
+			gaCat: 'search',
 			gaAction: 'search',
 			gaTimer: 1000,
-			gaIncludePageView: false,
+			gaIncludePageView: true,
 			templateSettings: {
 				interpolate: /__(.+?)__/g,
 				evaluate: /_%([\s\S]+?)%_/g,
@@ -85,7 +94,8 @@
 				index: ''
 			},
 			inputKeyUpCallback: null,
-			showNoResultsWhenCleared: false
+			showNoResultsWhenCleared: false,
+			trimRootUrl: true
 		};
 		
 		var o = $.extend({}, defaultOptions, options);
@@ -94,21 +104,22 @@
 			if (!o.gaCat) {
 				return;
 			}
-			App.fx.notify('tracking.sendEvent', {
+			App.fx.notify('tracking.push', {
 				cat: o.gaCat,
 				action: o.gaAction,
 				label: val,
 				value: nb
 			});
 			if (!!o.gaIncludePageView) {
-				App.fx.notify('tracking.sendPageView', {
+				App.fx.notify('tracking.push', {
+					event: 'pageview',
 					page: window.location.pathname + '?q=' + val
 				});
 			}
 		};
 
 		var appendNoResults = function (rCtn) {
-			var resultContent = rCtn.find(o.resultsContentSelector);
+			var resultContent = rCtn.find(o.searchResultContent);
 			var noResults = !!rCtn.find(o.noResultsTemplateSelector).length ?
 				rCtn.find(o.noResultsTemplateSelector).html() : '';
 			resultContent.append(noResults);
@@ -150,7 +161,7 @@
 		};
 		
 		var errorCallback = function (rCtn, content, val, err) {
-			var resultContent = rCtn.find(o.resultsContentSelector);
+			var resultContent = rCtn.find(o.searchResultContent);
 			
 			resultContent.empty();
 			
@@ -158,7 +169,7 @@
 		};
 		
 		var searchCallback = function (rCtn, content, val, appendNewResults) {
-			var resultContent = rCtn.find(o.resultsContentSelector);
+			var resultContent = rCtn.find(o.searchResultContent);
 			
 			if (!appendNewResults) {
 				resultContent.empty();
@@ -169,7 +180,6 @@
 			searchTaggingTimer = setTimeout(function () {
 				trackSearch(val, !content ? 0 : (content.nbHits || 0));
 			}, o.gaTimer);
-			
 			App.callback(o.searchCallback, [rCtn, content, o, val]);
 		};
 
@@ -251,7 +261,7 @@
 		};
 
 		var recommendCallback = function (rCtn, content, val) {
-			var resultContent = rCtn.find(o.resultsContentSelector);
+			var resultContent = rCtn.find(o.searchResultContent);
 			resultContent.empty();
 			applyTemplate(rCtn, resultContent, content, val);
 			App.callback(o.recommendCallback, [resultContent, content, o, val]);
@@ -433,7 +443,7 @@
 
 		var clear = function () {
 			resultsCtn.each(function () {
-				var resultContent = $(this).find(o.resultsContentSelector);
+				var resultContent = $(this).find(o.searchResultContent);
 				resultContent.empty();
 				
 				if (!!o.showNoResultsWhenCleared) {
