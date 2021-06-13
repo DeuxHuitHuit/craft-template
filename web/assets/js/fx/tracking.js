@@ -19,6 +19,14 @@
 	};
 
 	const log = (options) => {
+		if (!options || !options.event) {
+			App.log({
+				me: 'Tracking',
+				fx: 'error',
+				args: ['Missing event property in push call']
+			});
+		}
+
 		options = JSON.stringify(options, null, 2);
 		App.log({
 			me: 'Tracking',
