@@ -14,7 +14,7 @@ module.exports = (grunt) => {
 		require(`./tasks/${task}`)(grunt);
 	});
 
-	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-eslint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-concat');
@@ -24,8 +24,8 @@ module.exports = (grunt) => {
 	grunt.loadNpmTasks('grunt-env');
 	grunt.loadNpmTasks('grunt-complexity');
 	grunt.loadNpmTasks('grunt-prettier');
-  
-	grunt.registerTask('dev-js', ['complexity', 'prettier', 'jshint']);
+
+	grunt.registerTask('dev-js', ['complexity', 'prettier', 'eslint']);
 	grunt.registerTask('dev', ['dev-js']);
 
 	grunt.registerTask('js', [
