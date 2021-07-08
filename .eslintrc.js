@@ -41,8 +41,6 @@ module.exports = {
 					{
 						code: 100,
 						ignoreUrls: true,
-						ignoreTemplateLiterals: true,
-						ignoreStrings: true,
 					},
 				],
 				'no-irregular-whitespace': 'error',
