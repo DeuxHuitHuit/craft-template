@@ -10,7 +10,6 @@ module.exports = {
 		App: 'readonly',
 		jQuery: 'readonly',
 		_: 'readonly',
-		$: 'readonly',
 	},
 	overrides: [
 		{
@@ -19,12 +18,13 @@ module.exports = {
 				'web/assets/js/modules/*.js',
 				'web/assets/js/utils/*.js',
 				'web/assets/js/com/*.js',
+				'web/assets/js/pages/*.js',
 			],
 			rules: {
 				'no-bitwise': 'error',
 				'no-undef': 'error',
 				'no-global-assign': 'error',
-				'no-console': ['error', { allow: ['warn', 'error'] }],
+				'no-console': 'error',
 				curly: 'error',
 				eqeqeq: 'error',
 				'guard-for-in': 'error',
@@ -40,8 +40,6 @@ module.exports = {
 					'error',
 					{
 						code: 100,
-						ignoreComments: true,
-						ignoreTrailingComments: true,
 						ignoreUrls: true,
 						ignoreTemplateLiterals: true,
 						ignoreStrings: true,
