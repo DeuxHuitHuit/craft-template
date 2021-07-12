@@ -1,10 +1,10 @@
 /**
-* admin
-* @author Deux Huit Huit
-*/
-((undefined) => {
+ * admin
+ * @author Deux Huit Huit
+ */
+(() => {
 	'use strict';
-	
+
 	const useLangInUrl = true;
 	const lang = document.querySelector('html').getAttribute('lang');
 
@@ -26,6 +26,6 @@
 	};
 
 	App.modules.exports('admin', {
-		init: init
+		init: init,
 	});
 })();
