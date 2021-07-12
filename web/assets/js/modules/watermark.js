@@ -2,14 +2,13 @@
  * Watermark
  * @author Deux Huit Huit
  */
-(function ($, undefined) {
-
+(function ($) {
 	'use strict';
 
 	var site = $('#site');
 
 	var sels = {
-		ctn: '.js-watermark-ctn'
+		ctn: '.js-watermark-ctn',
 	};
 
 	var DELAY = 3000;
@@ -25,7 +24,7 @@
 						url: t.attr('data-href'),
 						success: function (data) {
 							t.append($(data).find('watermark').html());
-						}
+						},
 					});
 				}
 			});
@@ -35,13 +34,12 @@
 	var actions = function () {
 		return {
 			site: {
-				loaded: onSiteLoaded
-			}
+				loaded: onSiteLoaded,
+			},
 		};
 	};
 
 	App.modules.exports('watermark', {
-		actions: actions
+		actions: actions,
 	});
-
 })(jQuery);

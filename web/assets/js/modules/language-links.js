@@ -1,19 +1,18 @@
 /**
-* language-links
-* @author Deux Huit Huit
-*/
-(($, undefined) => {
-
+ * language-links
+ * @author Deux Huit Huit
+ */
+(($) => {
 	'use strict';
 
 	const scope = $('#site');
 
 	const sels = {
 		item: '.js-language-link',
-		metas: 'link[rel="alternate"]'
+		metas: 'link[rel="alternate"]',
 	};
 
-	const updated = (key, data) => {
+	const updated = () => {
 		const altLanguages = scope.find(sels.metas);
 		scope.find(sels.item).each((element) => {
 			element = $(element);
@@ -27,13 +26,12 @@
 	const actions = () => {
 		return {
 			metas: {
-				updated
-			}
+				updated,
+			},
 		};
 	};
 
 	App.modules.exports('language-links', {
-		actions: actions
+		actions: actions,
 	});
-	
 })(window.jQuery);
