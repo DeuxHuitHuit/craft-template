@@ -41,7 +41,7 @@ return [
 
         'sendPoweredByHeader' => false,
 
-        'cacheTTL' => 14400, // 12 hours
+        'cacheTTL' => 14400, // 12 hours
 
         'generateTransformsBeforePageLoad' => true,
     ],
