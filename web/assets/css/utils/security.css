@@ -1,5 +1,10 @@
 /* Default */
-._shim-security { @apply w-broad h-broad flex-shrink-0; }
-._px-security { @apply px-broad box-border w-full; }
-._py-security { @apply py-broad box-border; }
+._shim-security { @apply w-70 h-70 flex-shrink-0; }
+._px-security { @apply px-70 box-border w-full; }
+._py-security { @apply py-70 box-border; }
 
+@screen sm {
+	._shim-security { @apply w-120 h-120 flex-shrink-0; }
+	._px-security { @apply px-120; }
+	._py-security { @apply py-120; }
+}

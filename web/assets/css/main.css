@@ -5,3 +5,8 @@
 
 /* Components */
 @import 'tailwind/components.css';
+
+/* Utils */
+@import 'utils/interval.css';
+@import 'utils/security.css';
+@import 'utils/width.css';
