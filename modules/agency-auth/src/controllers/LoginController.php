@@ -15,9 +15,9 @@ class LoginController extends Controller
     public function actionIndex()
     {
         $config = Craft::$app->config->getConfigFromFile('agency-auth');
-        $currentSite = Craft::$app->getSites()->currentSite;
+        $primarySite = Craft::$app->getSites()->primarySite;
 
-        $callbackUrl = $currentSite->getBaseUrl() . 'actions/agency-auth/callback';
+        $callbackUrl = $primarySite->getBaseUrl() . 'actions/agency-auth/callback';
 
         $base = 'https://accounts.google.com/o/oauth2/auth';
         $query = [
