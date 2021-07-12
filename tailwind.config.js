@@ -18,7 +18,7 @@ module.exports = {
 	purge: {
 		mode: 'layers',
 		layers: ['base', 'components', 'utilities'],
-		content: ['./templates/**/*.twig', './web/assets/js/**/*.js', './config/redactor/*.json']
+		content: ['./templates/**/*.twig', './web/assets/js/**/*.js', './config/redactor/*.json'],
 	},
 	darkMode: 'class',
 	theme: {
@@ -35,7 +35,7 @@ module.exports = {
 			'2k': '2048px',
 			'4k': '3840px',
 			touch: { raw: '(hover: none)' },
-			pointer: { raw: '(any-hover: hover)' }
+			pointer: { raw: '(any-hover: hover)' },
 		},
 		colors: {
 			transparent: 'transparent',
@@ -49,7 +49,7 @@ module.exports = {
 				40: 'rgba(0, 0, 0, 0.4)',
 				30: 'rgba(0, 0, 0, 0.3)',
 				20: 'rgba(0, 0, 0, 0.2)',
-				10: 'rgba(0, 0, 0, 0.1)'
+				10: 'rgba(0, 0, 0, 0.1)',
 			},
 			white: {
 				DEFAULT: '#F4F2E7',
@@ -60,13 +60,13 @@ module.exports = {
 				40: 'rgba(244, 244, 244, 0.4)',
 				30: 'rgba(244, 244, 244, 0.3)',
 				20: 'rgba(244, 244, 244, 0.2)',
-				10: 'rgba(244, 244, 244, 0.1)'
+				10: 'rgba(244, 244, 244, 0.1)',
 			},
 			brand: {
 				beige: '#E2DCC3',
 				orange: '#FF6C00',
-				brown: '#C54F00'
-			}
+				brown: '#C54F00',
+			},
 		},
 		spacing: (theme) => ({
 			0: '0',
@@ -137,71 +137,101 @@ module.exports = {
 			'19/20': '95%',
 			header: '64rem',
 			full: '100%',
-			...except(screenExceptions, theme('screens'))
+			...except(screenExceptions, theme('screens')),
 		}),
 		maxWidth: (theme) => ({
 			none: 'none',
 			auto: 'auto',
-			...theme('spacing')
+			...theme('spacing'),
 		}),
 		minWidth: (theme) => ({
 			none: 'none',
 			auto: 'auto',
-			...theme('spacing')
+			...theme('spacing'),
 		}),
 		maxHeight: (theme) => ({
 			none: 'none',
 			auto: 'auto',
-			...theme('spacing')
+			...theme('spacing'),
 		}),
 		minHeight: (theme) => ({
 			none: 'none',
 			auto: 'auto',
-			...theme('spacing')
+			...theme('spacing'),
 		}),
 		inset: (theme) => ({
 			none: 'none',
 			auto: 'auto',
-			...theme('spacing')
+			...theme('spacing'),
 		}),
 		fontFamily: {
-			base: ['suisseintl', 'Arial', 'sans-serif']
+			base: ['Arial', 'sans-serif'],
 		},
-		fontSize: theme => ({
-			10: ['13rem', {
-				lineHeight: theme('lineHeight.20'),
-			}],
-			20: ['16rem', {
-				lineHeight: theme('lineHeight.20'),
-				letterSpacing: theme('letterSpacing.50'),
-			}],
-			30: ['20rem', {
-				lineHeight: theme('lineHeight.20'),
-				letterSpacing: theme('letterSpacing.50'),
-			}],
-			40: ['26.5rem', {
-				lineHeight: theme('lineHeight.20'),
-				letterSpacing: theme('letterSpacing.50'),
-			}],
-			50: ['32rem', {
-				lineHeight: theme('lineHeight.20'),
-				letterSpacing: theme('letterSpacing.50'),
-			}],
-			60: ['44rem', {
-				lineHeight: theme('lineHeight.10'),
-			}],
-			70: ['56rem', {
-				lineHeight: theme('lineHeight.10'),
-			}],
-			80: ['96rem', {
-				lineHeight: theme('lineHeight.10'),
-			}],
-			90: ['144rem', {
-				lineHeight: theme('lineHeight.10'),
-			}],
-			100: ['200rem', {
-				lineHeight: theme('lineHeight.10'),
-			}],
+		fontSize: (theme) => ({
+			10: [
+				'13rem',
+				{
+					lineHeight: theme('lineHeight.20'),
+				},
+			],
+			20: [
+				'16rem',
+				{
+					lineHeight: theme('lineHeight.20'),
+					letterSpacing: theme('letterSpacing.50'),
+				},
+			],
+			30: [
+				'20rem',
+				{
+					lineHeight: theme('lineHeight.20'),
+					letterSpacing: theme('letterSpacing.50'),
+				},
+			],
+			40: [
+				'26.5rem',
+				{
+					lineHeight: theme('lineHeight.20'),
+					letterSpacing: theme('letterSpacing.50'),
+				},
+			],
+			50: [
+				'32rem',
+				{
+					lineHeight: theme('lineHeight.20'),
+					letterSpacing: theme('letterSpacing.50'),
+				},
+			],
+			60: [
+				'44rem',
+				{
+					lineHeight: theme('lineHeight.10'),
+				},
+			],
+			70: [
+				'56rem',
+				{
+					lineHeight: theme('lineHeight.10'),
+				},
+			],
+			80: [
+				'96rem',
+				{
+					lineHeight: theme('lineHeight.10'),
+				},
+			],
+			90: [
+				'144rem',
+				{
+					lineHeight: theme('lineHeight.10'),
+				},
+			],
+			100: [
+				'200rem',
+				{
+					lineHeight: theme('lineHeight.10'),
+				},
+			],
 		}),
 		lineHeight: {
 			0: '1.0',
@@ -210,7 +240,7 @@ module.exports = {
 			30: '1.3',
 			40: '1.4',
 			50: '1.5',
-			60: '1.6'
+			60: '1.6',
 		},
 		borderWidth: {
 			0: '0',
@@ -220,7 +250,7 @@ module.exports = {
 			40: '6px',
 			50: '8px',
 			60: '10px',
-			70: '20px'
+			70: '20px',
 		},
 		borderRadius: {
 			0: '0',
@@ -229,14 +259,14 @@ module.exports = {
 			20: '10px',
 			30: '20px',
 			40: '40px',
-			full: '9999px'
+			full: '9999px',
 		},
 		extend: {
 			transitionTimingFunction: {
 				'out-expo': 'cubic-bezier(0.19, 1, 0.22, 1)',
-				'out-quad': 'cubic-bezier(0.5, 1, 0.89, 1)'
+				'out-quad': 'cubic-bezier(0.5, 1, 0.89, 1)',
 			},
-		}
+		},
 	},
-	plugins: [require('postcss-focus-visible')]
+	plugins: [require('postcss-focus-visible')],
 };

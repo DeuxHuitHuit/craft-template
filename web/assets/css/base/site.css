@@ -1,10 +1,8 @@
 ::selection {
-	@apply bg-main-reverse;
-	@apply text-main-reverse;
+	@apply bg-black text-white;
 }
 ::-moz-selection {
-	@apply bg-main-reverse;
-	@apply text-main-reverse;
+	@apply bg-black text-white;
 }
 
 @media screen and (prefers-reduced-motion: reduce), (update: slow) {
@@ -22,12 +20,8 @@ html {
 	--unit-root: 1;
 	--security-root: 60;
 	--fluid-breakpoint-root: 1560;
-	--perimeter-root: calc(
-		var(--fluid-breakpoint-root) - var(--security-root) * 2
-	);
-	--unit-in-vw: calc(
-		var(--unit-root) * 100 / var(--fluid-breakpoint-root) * 1vw
-	);
+	--perimeter-root: calc(var(--fluid-breakpoint-root) - var(--security-root) * 2);
+	--unit-in-vw: calc(var(--unit-root) * 100 / var(--fluid-breakpoint-root) * 1vw);
 	--unit-in-px: calc(var(--unit-root) * 1px);
 
 	--ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
@@ -36,7 +30,7 @@ html {
 }
 
 body {
-	@apply text-current;
+	@apply text-30 font-base;
 }
 
 /* Tablet */
