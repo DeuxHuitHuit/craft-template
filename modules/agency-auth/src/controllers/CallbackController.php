@@ -27,6 +27,10 @@ class CallbackController extends Controller
 
         $callbackUrl = $currentSite->getBaseUrl() . 'actions/agency-auth/callback';
 
+        // see: https://developers.google.com/identity/protocols/oauth2/web-server#httprest
+
+        // 1. Get access token from Google with ?code= qs param
+
         $url = 'https://oauth2.googleapis.com/token';
 
         $r = $client->request('POST', $url, [
@@ -49,6 +53,11 @@ class CallbackController extends Controller
 
         $r = json_decode($r->getBody(), true);
 
+
+
+
+        // 2. With the access token, get the user info from Google
+
         $url = 'https://www.googleapis.com/oauth2/v2/userinfo?fields=name,given_name,family_name,email,locale,picture,verified_email';
 
         $r = $client->request('GET', $url, [
@@ -64,8 +73,14 @@ class CallbackController extends Controller
 
         $providerData = json_decode($r->getBody(), true);
 
+
+
+
+        // 3. With the Google's user info, find or create a user in Craft
+
         $user = Craft::$app->users->getUserByUsernameOrEmail($providerData['email']);
 
+        // if no one was found, create a new admin user
         if (empty($user)) {
             $newUser = new User();
             $newUser->username = $providerData['email'];
@@ -75,8 +90,10 @@ class CallbackController extends Controller
             $newUser->suspended = false;
             $newUser->pending = false;
             $newUser->unverifiedEmail = null;
-            $newUser->newPassword = 'Deuxhuithuit!';
             $newUser->admin  = true;
+
+            // set the password to a generic, unusable password from an anonymous user
+            $newUser->newPassword = 'Deuxhuithuit!';
 
             try {
                 Craft::$app->elements->saveElement($newUser, false);
@@ -88,15 +105,20 @@ class CallbackController extends Controller
             $user = $newUser;
         }
 
+        // make sure if someone is logged in, they are logged out with this
         Craft::$app->getUser()->logout();
 
         if (!empty($user)) {
 
+            // Even though the Google Workspace account is valid and active we can always suspend
+            // the craft account if need be.
             if (!!$user->suspended) {
                 return $this->asErrorJson('Your account is suspended.');
             }
 
             Craft::$app->getUser()->login($user);
+
+            // redirect to the dashboard
             return $this->redirect(UrlHelper::cpUrl());
         }
     }

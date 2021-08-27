@@ -7,7 +7,7 @@ use craft\web\Controller;
 use craft\elements\User;
 
 
-class LoginController extends Controller
+class DialogController extends Controller
 {
 
     protected $allowAnonymous = ['index'];
