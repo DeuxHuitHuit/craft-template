@@ -35,7 +35,7 @@
     "postcss-focus-visible": "^5.0.0",
     "postcss-import": "^14.0.2",
     "postcss-nested": "^5.0.6",
-    "tailwindcss": "^2.2.7"
+    "tailwindcss": "^2.2.11"
   },
   "devDependencies": {}
 }
