@@ -26,7 +26,7 @@
     "grunt-contrib-watch": "^1.1.0",
     "grunt-csso": "^2.2.4",
     "grunt-env": "^1.0.1",
-    "grunt-eslint": "^23.0.0",
+    "grunt-eslint": "^24.0.0",
     "grunt-ftp-push": "^1.2.1",
     "grunt-prettier": "^2.1.0",
     "grunt-purgecss": "^4.0.3",
