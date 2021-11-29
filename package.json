@@ -29,7 +29,7 @@
     "grunt-eslint": "^23.0.0",
     "grunt-ftp-push": "^1.2.1",
     "grunt-prettier": "^2.1.0",
-    "grunt-purgecss": "^4.0.3",
+    "grunt-purgecss": "^4.1.1",
     "grunt-svninfo": "^0.1.6",
     "postcss": "^8.3.6",
     "postcss-focus-visible": "^5.0.0",
